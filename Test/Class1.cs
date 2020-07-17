@@ -13,7 +13,7 @@ namespace Test
             var ffs = DotNet.Net.HttpHelper.Default.Get("https://www.qq.com", new { ws = "我的1", ie="utf-8" });
             Console.WriteLine(ffs.Html);
             Console.WriteLine(ffs.Html);
-
+           
             Console.WriteLine(((DotNet.Result)false).ToJson());
             Console.Read();
         }

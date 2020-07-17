@@ -9,11 +9,16 @@ namespace DotNet.Net
     /// <summary>
     /// Berkeley 套接字 辅助
     /// </summary>
-    public abstract class SocketHelper<T>
+    public abstract class SocketClient<Package>
+        where Package : IDataPackage
     {
         private Socket m_Socket;
         private Timer timerHeartbeat;
         private System.Net.EndPoint remoteEndPoint;
+        /// <summary>
+        /// 客户端唯一标识
+        /// </summary>
+        public virtual long Id { get; set; }
         /// <summary>
         ///  Berkeley 套接字。
         /// </summary>
@@ -30,14 +35,14 @@ namespace DotNet.Net
         /// 初始化
         /// </summary>
         /// <param name="socket"></param>
-        protected SocketHelper(Socket socket)
+        protected SocketClient(Socket socket)
         {
             Socket = socket;
         }
         /// <summary>
         /// 初始化
         /// </summary>
-        protected SocketHelper()
+        protected SocketClient()
         {
 
         }
@@ -45,21 +50,21 @@ namespace DotNet.Net
         /// 读取一个完整的包。
         /// </summary>
         /// <returns></returns>
-        protected abstract DotNet.Result<T> ReceivePackage();
+        protected abstract DotNet.Result<Package> ReceivePackage();
         /// <summary>
         /// 开始循环读取消息。
         /// </summary>
         public virtual void OnReceive()
         {
 
-            DotNet.Result<T> bytesResult = new Result<T>();
+            DotNet.Result<Package> bytesResult = new Result<Package>();
             try
             {
                 bytesResult = ReceivePackage();
             }
             catch (Exception ex)
             {
-                WriteLog($"接收包时报错，错误内容{ex}");
+                WriteErrorLog($"接收包时异常", ex);
             }
             finally
             {
@@ -76,7 +81,7 @@ namespace DotNet.Net
                     }
                     catch (Exception ex)
                     {
-                        WriteLog($"客户端处理包时报错，错误内容{ex}");
+                        WriteErrorLog($"客户端处理包时报错", ex);
                     }
                 }
                 else
@@ -179,22 +184,16 @@ namespace DotNet.Net
         /// <param name="text">日志内容</param>
         public virtual void WriteLog(string text)
         {
-            Console.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}：{RemoteEndPoint}—{text}");
-            var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location), "log", DateTime.Now.ToString("yyyy-MM"));
-            try
-            {
-                if (!System.IO.Directory.Exists(path))
-                {
-                    System.IO.Directory.CreateDirectory(path);
-                }
-                path = System.IO.Path.Combine(path, $"{DateTime.Now:yyyy-MM-dd}.log");
-                System.IO.File.AppendAllText(path, $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}:{RemoteEndPoint}—{text}\r\n");
-            }
-            catch
-            {
-
-            }
-
+            Log.WriteLog(text);
+        }
+        /// <summary>
+        /// 写入错误信息到日志。
+        /// </summary>
+        /// <param name="text">错误信息描述</param>
+        /// <param name="exception">异常信息</param>
+        public virtual void WriteErrorLog(string text, Exception exception = null)
+        {
+            Log.WriteErrorLog(text, exception);
         }
         /// <summary>
         /// 写入日志。
@@ -210,13 +209,13 @@ namespace DotNet.Net
         /// 开始处理接收的包
         /// </summary>
         /// <param name="dataPackage"></param>
-        protected abstract Task OnHandleDataPackage(T dataPackage);
+        protected abstract Task OnHandleDataPackage(Package dataPackage);
 #else
         /// <summary>
         /// 开始处理接收的包
         /// </summary>
         /// <param name="dataPackage"></param>
-        protected abstract Task OnHandleDataPackage(T dataPackage);
+        protected abstract Task OnHandleDataPackage(Package dataPackage);
 #endif
         /// <summary>
         /// 发送数据
@@ -234,7 +233,7 @@ namespace DotNet.Net
                     }
                     catch (Exception ex)
                     {
-                        WriteLog($"发送数据{bytes.ToBase64String()}异常：{ex}");
+                        WriteErrorLog($"发送数据{bytes.ToBase64String()}", ex);
                         if (!Socket.Connected)
                         {
                             Close();

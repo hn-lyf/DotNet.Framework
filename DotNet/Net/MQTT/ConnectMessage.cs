@@ -33,7 +33,9 @@ namespace DotNet.Net.MQTT
         /// 当客户端意外断开服务器发布其Will Message之后，服务器是否应该继续保存。
         /// </summary>
         public bool WillRetain { get => ((ConnectFlag >> 5) & 1) == 1; }
-
+        /// <summary>
+        /// 连接的质量
+        /// </summary>
         public bool WillQos { get => ((ConnectFlag >> 4) & 1) == 1; }
         /// <summary>
         /// 定义了客户端（没有主动发送DISCONNECT消息）出现网络异常导致连接中断的情况下，服务器需要做的一些措施。
