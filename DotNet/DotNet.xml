@@ -1,0 +1,1236 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotNet</name>
+    </assembly>
+    <members>
+        <member name="T:DotNet.Configuration">
+            <summary>
+            获取默认配置信息。
+            </summary>
+        </member>
+        <member name="T:DotNet.JsonData">
+            <summary>
+            json的动态类。
+            </summary>
+        </member>
+        <member name="T:DotNet.Linq.ByteExtension">
+            <summary>
+            <see cref="T:System.Byte"/>相关控制。
+            </summary>
+        </member>
+        <member name="P:DotNet.Linq.ByteExtension.PrivateKey">
+            <summary>
+            默认<see cref="T:System.Security.Cryptography.RSA"/>的私有密钥。
+            </summary>
+        </member>
+        <member name="P:DotNet.Linq.ByteExtension.PublicKey">
+            <summary>
+            默认<see cref="T:System.Security.Cryptography.RSA"/>的公共密钥。
+            </summary>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToRSAEncrypt(System.Byte[],System.Byte[])">
+            <summary>
+            <see cref="T:System.Security.Cryptography.RSA"/> 算法的实现执行不对称加密
+            </summary>
+            <param name="bytes">要加密的字节数组。</param>
+            <param name="publicKey"><see cref="T:System.Security.Cryptography.RSA"/> 公共密钥。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToRSAEDecrypt(System.Byte[],System.String)">
+            <summary>
+             <see cref="T:System.Security.Cryptography.RSA"/> 算法的实现执行不对称解密。
+            </summary>
+            <param name="bytes">要解密的字节数组。</param>
+            <param name="privateKey"><see cref="T:System.Security.Cryptography.RSA"/> 私有密钥。</param>
+            <returns>已解密的数据，它是加密前的原始纯文本。</returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.Deserialize(System.Byte[])">
+            <summary>
+             将一个<see cref="T:System.Byte"/>字节数组解析成类成员。
+            </summary>
+            <param name="bytes">要转换的字节数组。</param>
+            <returns>解析出来的类成员<see cref="T:System.Object"/>。</returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToHexString(System.Byte[])">
+            <summary>
+            将一个<see cref="T:System.Byte"/>字节数组转换成一个十六进制字符串。
+            </summary>
+            <param name="bytes">要转换的字节数组。</param>
+            <returns>一个十六进制字符串。</returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToMD5(System.Byte[])">
+            <summary>
+            计算指定字节数组的MD5值。
+            </summary>
+            <param name="value">要计算的字节数组。</param>
+            <returns>计算所得的哈希代码。</returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToMD5(System.Byte[],System.Byte[])">
+            <summary>
+            使用提供的密钥计算指定字节数组的MD5值。
+            </summary>
+            <param name="value">要计算的字节数组。</param>
+            <param name="keyValue"><see cref="T:System.Security.Cryptography.HMACMD5"/> 加密的机密密钥。密钥的长度不限，但如果超过 64 个字节，就会对其进行哈希计算（使用SHA-1），以派生一个 64 个字节的密钥。因此，建议的密钥大小为 64 个字节。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.GetString(System.Byte[],System.Text.Encoding)">
+            <summary>
+            使用制定的编码对字节数组编码。
+            </summary>
+            <param name="bytes">要制定的字节数组。</param>
+            <param name="encoding">如果为null则采用utf-8编码。</param>
+            <returns>包含指定字节序列解码结果的<see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.GetString(System.Byte[],System.Int32,System.Int32,System.Text.Encoding)">
+            <summary>
+            使用制定的编码对字节数组编码。
+            </summary>
+            <param name="bytes">要制定的字节数组。</param>
+            <param name="index">第一个要解码的字节的索引。</param>
+            <param name="count">要解码的字节数。</param>
+            <param name="encoding">如果为null则采用utf-8编码。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToAESEncrypt(System.Byte[],System.Byte[])">
+            <summary>
+            将字节进行<see cref="T:System.Security.Cryptography.AesCryptoServiceProvider"/> AES加密
+            </summary>
+            <param name="value">要加密的字节数组</param>
+            <param name="keyValue">用于加密和解密的对称密钥。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToAESDecrypt(System.Byte[],System.Byte[])">
+            <summary>
+            将字节进行<see cref="T:System.Security.Cryptography.AesCryptoServiceProvider"/> AES解密
+            </summary>
+            <param name="value">要解密的字节数组</param>
+            <param name="keyValue">用于加密和解密的对称密钥。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToHMACSHA256(System.Byte[],System.Byte[])">
+            <summary>
+            将<see cref="T:System.Byte"/>数组进行HMAC-SHA256计算。
+            </summary>
+            <param name="value">要机密的数据。</param>
+            <param name="key"><see cref="T:System.Security.Cryptography.HMACSHA256"/>加密的机密密钥。密钥的长度不限，但如果超过 64 个字节，就会对其进行哈希计算（使用SHA-1），以派生一个 64 个字节的密钥。因此，建议的密钥大小为 64 个字节。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToBase64String(System.Byte[])">
+            <summary>
+            将 8 位无符号整数的数组转换为其用 Base64 数字编码的等效字符串表示形式。
+            </summary>
+            <param name="value"> 一个 8 位无符号整数数组。</param>
+            <returns><paramref name="value"/> 的内容的字符串表示形式，以 Base64 表示。</returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToInt32(System.Byte[],System.Int32)">
+            <summary>
+            将4字节<see cref="T:System.Byte"/>数组转换<see cref="T:System.Int32"/>。
+            </summary>
+            <param name="bytes"></param>
+            <param name="index">从第几个字节开始</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToUInt32(System.Byte[],System.Int32)">
+            <summary>
+            将4字节<see cref="T:System.Byte"/>数组转换<see cref="T:System.UInt32"/>。
+            </summary>
+            <param name="bytes"></param>
+            <param name="index">从第几个字节开始</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToInt64(System.Byte[],System.Int32)">
+            <summary>
+            将8字节<see cref="T:System.Byte"/>转换<see cref="T:System.Int64"/>。
+            </summary>
+            <param name="bytes"></param>
+            <param name="index">从第几个字节开始</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToUInt64(System.Byte[],System.Int32)">
+            <summary>
+            将8字节<see cref="T:System.Byte"/>转换<see cref="T:System.UInt64"/>。
+            </summary>
+            <param name="bytes"></param>
+            <param name="index">从第几个字节开始</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToBoolean(System.Byte[],System.Int32)">
+            <summary>
+            将1字节<see cref="T:System.Byte"/>转换<see cref="T:System.Boolean"/>。
+            </summary>
+            <param name="bytes"></param>
+            <param name="index">从第几个字节开始</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToDouble(System.Byte[],System.Int32)">
+            <summary>
+            将8字节<see cref="T:System.Byte"/>转换<see cref="T:System.Double"/>。
+            </summary>
+            <param name="bytes"></param>
+            <param name="startIndex">从第几个字节开始</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToFloat(System.Byte[],System.Int32)">
+            <summary>
+            将4字节<see cref="T:System.Byte"/>转换<see cref="T:System.Single"/>。
+            </summary>
+            <param name="bytes"></param>
+            <param name="startIndex">从第几个字节开始</param>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToInt16(System.Byte[],System.Int32)">
+            <summary>
+            将2字节<see cref="T:System.Byte"/>转换<see cref="T:System.Int16"/>。
+            </summary>
+            <param name="bytes"></param>
+            <param name="startIndex">从第几个字节开始</param>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToUInt16(System.Byte[],System.Int32)">
+            <summary>
+            将2字节<see cref="T:System.Byte"/>转换<see cref="T:System.UInt16"/>。
+            </summary>
+            <param name="bytes"></param>
+            <param name="startIndex">从第几个字节开始</param>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToBytes(System.Int64)">
+            <summary>
+            将<see cref="T:System.Int64"/>转换8字节<see cref="T:System.Byte"/>。
+            </summary>
+            <param name="value">要转换的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToBytes(System.UInt64)">
+            <summary>
+            将<see cref="T:System.UInt64"/>转换8字节<see cref="T:System.Byte"/>。
+            </summary>
+            <param name="value">要转换的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToBytes(System.Int32)">
+            <summary>
+            将<see cref="T:System.Int32"/>转换4字节<see cref="T:System.Byte"/>。
+            </summary>
+            <param name="i">要转换的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToBytes(System.UInt32)">
+            <summary>
+            将<see cref="T:System.UInt32"/>转换4字节<see cref="T:System.Byte"/>。
+            </summary>
+            <param name="i">要转换的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToBytes(System.Int16)">
+            <summary>
+            将<see cref="T:System.Int16"/>转换2字节<see cref="T:System.Byte"/>。
+            </summary>
+            <param name="i">要转换的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.ToBytes(System.UInt16)">
+            <summary>
+            将<see cref="T:System.UInt16"/>转换2字节<see cref="T:System.Byte"/>。
+            </summary>
+            <param name="i">要转换的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.UrlEncode(System.Byte[],System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            将指定的bytes字节进行url编码
+            </summary>
+            <param name="bytes">要编码的字节</param>
+            <param name="offset">开始字节</param>
+            <param name="count">编码个数</param>
+            <param name="isUpper">是否采用大写（比如：默认是%e8 如果转会成大写就是%E8 ）主要是腾讯那二逼的坑</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.AddVariableLengthByte(System.Collections.Generic.List{System.Byte},System.Int32)">
+            <summary>
+            添加动态长度字节。最高位为1 则标识需要加上后面的字节，如果最高位为0则结束。
+            </summary>
+            <param name="list"></param>
+            <param name="length">要加上的长度</param>
+        </member>
+        <member name="M:DotNet.Linq.ByteExtension.GetVariableLengthBytes(System.Int32)">
+            <summary>
+            获取动态长度字节。最高位为1 则标识需要加上后面的字节，如果最高位为0则结束。
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Linq.DataReaderExtension">
+            <summary>
+            <see cref="T:System.Data.IDataReader"/>扩展类。
+            </summary>
+        </member>
+        <member name="M:DotNet.Linq.DataReaderExtension.ToList``1(System.Data.IDataReader)">
+            <summary>
+            将<see cref="T:System.Data.IDataReader"/>转换成<see cref="T:System.Collections.Generic.List`1"/>对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="dataReader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.DataReaderExtension.ToModel``1(System.Data.IDataReader,System.Type)">
+            <summary>
+            将<see cref="T:System.Data.IDataReader"/>转换成<typeparamref name="T"/>对象。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="dataReader"></param>
+            <param name="type">如果为null则为<typeparamref name="T"/>类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Linq.DataRowExtension">
+            <summary>
+            <see cref="T:System.Data.DataRow"/>类的扩展。
+            </summary>
+        </member>
+        <member name="M:DotNet.Linq.DataRowExtension.ToModel``1(System.Data.DataRow,``0,System.Boolean)">
+            <summary>
+            转换成实体类。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="row"></param>
+            <param name="model">要绑定的实体。</param>
+            <param name="throwOnError">true 将引发所发生的任何异常。 - 或 - false 将忽略所发生的任何异常。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.DataRowExtension.ToModels``1(System.Data.DataRowCollection,System.Boolean)">
+            <summary>
+            转换成实体类。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="rows"></param>
+            <param name="throwOnError">true 将引发所发生的任何异常。 - 或 - false 将忽略所发生的任何异常。</param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Linq.DateTimeExtension">
+            <summary>
+            <see cref="T:System.DateTime"/>时间扩展类。
+            </summary>
+        </member>
+        <member name="M:DotNet.Linq.DateTimeExtension.ToUnixTimestamp(System.DateTime)">
+            <summary>
+            将<see cref="T:System.DateTime"/>时间转换成Unix时间戳。
+            </summary>
+            <param name="dateTime"><see cref="T:System.DateTime"/>时间。</param>
+            <returns>Unix时间戳。</returns>
+        </member>
+        <member name="M:DotNet.Linq.DateTimeExtension.ToDateTime(System.Int64)">
+            <summary>
+            将时间戳转换成<see cref="T:System.DateTime"/>时间
+            </summary>
+            <param name="value">要转换的时间戳</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.DateTimeExtension.ToSnowflakeEqualsId(System.DateTime)">
+            <summary>
+            将时间换算成可与<see cref="T:DotNet.Snowflake"/>的编号。
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Linq.DelegateExtension">
+            <summary>
+            委托扩展类。
+            </summary>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetry(System.Action,System.Int32)">
+            <summary>
+            执行委托，并指定重试次数
+            </summary>
+            <param name="action"></param>
+            <param name="retryCount"></param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetry(System.Action,System.Int32,System.Int32)">
+            <summary>
+            执行委托，并指定重试次数和每次重试的间隔时间。
+            </summary>
+            <param name="action">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="sleep">每次重试间隔的时间。</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetry(System.Action,System.Int32,System.Action{System.Exception,System.Int32})">
+            <summary>
+            执行委托，并指定重试次数
+            </summary>
+            <param name="action">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetry(System.Action,System.Int32,System.Func{System.Exception,System.Int32,System.Boolean})">
+            <summary>
+            执行委托，并指定重试次数
+            </summary>
+            <param name="action">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetry``1(System.Action,System.Int32,System.Action{``0,System.Int32})">
+            <summary>
+            执行委托，并指定重试次数
+            </summary>
+            <typeparam name="T">异常</typeparam>
+            <param name="action">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetry``1(System.Action,System.Int32,System.Func{``0,System.Int32,System.Boolean})">
+            <summary>
+            执行委托，并指定重试次数
+            </summary>
+            <typeparam name="T">异常</typeparam>
+            <param name="action">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托,如果返回true,将结束重试</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetryAsync(System.Action,System.Int32,System.Int32)">
+            <summary>
+            异步执行委托，并指定重试次数和每次重试的间隔时间。
+            </summary>
+            <param name="action">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="sleep">每次重试间隔的时间。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetryAsync(System.Action,System.Int32,System.Action{System.Exception,System.Int32})">
+            <summary>
+            异步执行委托，并指定重试次数
+            </summary>
+            <param name="action">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetryAsync(System.Action,System.Int32,System.Func{System.Exception,System.Int32,System.Boolean})">
+            <summary>
+            执行委托，并指定重试次数
+            </summary>
+            <param name="action">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetryAsync``1(System.Action,System.Int32,System.Action{``0,System.Int32})">
+            <summary>
+            执行委托，并指定重试次数
+            </summary>
+            <typeparam name="T">异常</typeparam>
+            <param name="action">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetryAsync``1(System.Action,System.Int32,System.Func{``0,System.Int32,System.Boolean})">
+            <summary>
+            执行委托，并指定重试次数
+            </summary>
+            <typeparam name="T">异常</typeparam>
+            <param name="action">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托,如果返回true,将结束重试</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetry``1(System.Func{``0},System.Int32)">
+            <summary>
+            执行委托，并指定重试次数
+            </summary>
+            <param name="func"></param>
+            <param name="retryCount"></param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetry``1(System.Func{``0},System.Int32,System.Func{System.Exception,System.Int32,System.Boolean})">
+            <summary>
+            执行委托，并指定重试次数
+            </summary>
+            <typeparam name="TResult">返回的类型</typeparam>
+            <param name="func">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托,如果返回true,将结束重试</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetry``1(System.Func{``0},System.Int32,System.Action{System.Exception,System.Int32})">
+            <summary>
+            执行委托，并指定重试次数
+            </summary>
+            <typeparam name="TResult">返回的类型</typeparam>
+            <param name="func">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托,如果返回true,将结束重试</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetryAsync``1(System.Func{``0},System.Int32,System.Func{System.Exception,System.Int32,System.Boolean})">
+            <summary>
+            异步执行委托，并指定重试次数
+            </summary>
+            <typeparam name="TResult">返回的类型</typeparam>
+            <param name="func">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托,如果返回true,将结束重试</param>
+        </member>
+        <member name="M:DotNet.Linq.DelegateExtension.ExecuteRetryAsync``1(System.Func{``0},System.Int32,System.Action{System.Exception,System.Int32})">
+            <summary>
+            异步执行委托，并指定重试次数
+            </summary>
+            <typeparam name="TResult">返回的类型</typeparam>
+            <param name="func">要执行的委托</param>
+            <param name="retryCount">重试次数</param>
+            <param name="exceptionAction">执行异常时发生的委托,如果返回true,将结束重试</param>
+        </member>
+        <member name="T:DotNet.Linq.Extension">
+            <summary>
+            扩展类
+            </summary>
+        </member>
+        <member name="M:DotNet.Linq.Extension.IsNull``1(``0)">
+            <summary>
+            判断是否为null值或为<see cref="T:System.DBNull"/>。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value">需要要判断的</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.Extension.Dispose``1(``0)">
+            <summary>
+            释放资源
+            </summary>
+            <typeparam name="T">释放资源的类型</typeparam>
+            <param name="value">待释放的资源。</param>
+        </member>
+        <member name="M:DotNet.Linq.Extension.Serialize``1(``0)">
+            <summary>
+            将对象或具有指定顶级（根）的对象图形序列化为给定流。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value">要序列化的对象。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.Extension.Serialize``1(``0,System.IO.Stream)">
+            <summary>
+            将对象或具有指定顶级（根）的对象图形序列化为给定流。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value">要序列化的对象。</param>
+            <param name="stream">图形要序列化为的流。</param>
+        </member>
+        <member name="M:DotNet.Linq.Extension.ToString``1(``0,System.String)">
+            <summary>
+            使用指定的格式格式化当前实例的值。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value">需要格式化的对象。</param>
+            <param name="format"> 要使用的格式。</param>
+            <returns>返回格式化后的字符串。</returns>
+        </member>
+        <member name="M:DotNet.Linq.Extension.ChangeType``1(``0,System.Type)">
+            <summary>
+            更改对象类型
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <param name="conversionType">要转换后的字符串。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.Extension.GetValueType(System.Type)">
+            <summary>
+            获取值真实的类，避免int? 等。
+            </summary>
+            <param name="conversionType">要转换后的字符串。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.Extension.ToJson``1(``0,System.Boolean)">
+            <summary>
+            将对象转换成json字符串
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <param name="isLower">是否转换成小写</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.Extension.Join``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.String},System.String)">
+            <summary>
+            串联类型为 System.Collections.Generic.IEnumerable`1 的 System.String 构造集合的成员，其中在每个成员之间使用指定的分隔符。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="func"></param>
+            <param name="separator">要用作分隔符的字符串。separator 包括在返回的字符串中（只有在 values 具有多个元素时）。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.Extension.ToSortJoin``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.String},System.String)">
+            <summary>
+            串联类型为 System.Collections.Generic.IEnumerable`1 的 System.String 构造集合的成员并排序，其中在每个成员之间使用指定的分隔符。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="func"></param>
+            <param name="separator">要用作分隔符的字符串。separator 包括在返回的字符串中（只有在 values 具有多个元素时）。</param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Linq.RSAExtension">
+            <summary>
+            <see cref="T:System.Security.Cryptography.RSA"/>控制类。
+            </summary>
+        </member>
+        <member name="M:DotNet.Linq.RSAExtension.FromExXmlString(System.Security.Cryptography.RSA,System.String)">
+            <summary>
+            重写默认的<see cref="M:System.Security.Cryptography.RSA.FromXmlString(System.String)"/>方法。因为它在.net core中不受支持。
+            </summary>
+            <param name="rsa"></param>
+            <param name="xmlString"></param>
+        </member>
+        <member name="M:DotNet.Linq.RSAExtension.ToRSAParameters(System.String)">
+            <summary>
+            重写默认的<see cref="M:System.Security.Cryptography.RSA.FromXmlString(System.String)"/>方法。因为它在.net core中不受支持。
+            </summary>
+            <param name="xmlString"></param>
+        </member>
+        <member name="M:DotNet.Linq.RSAExtension.ToEXmlString(System.Security.Cryptography.RSA,System.Boolean)">
+            <summary>
+            重写默认的<see cref="M:System.Security.Cryptography.RSA.ToXmlString(System.Boolean)"/>方法。因为它在.net core中不受支持。
+            </summary>
+            <param name="rsa"></param>
+            <param name="includePrivateParameters"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Linq.SocketExtension">
+            <summary>
+            <see cref="T:System.Net.Sockets.Socket"/> 扩展
+            </summary>
+        </member>
+        <member name="M:DotNet.Linq.SocketExtension.ExchangeData(System.Net.Sockets.Socket,System.Net.Sockets.Socket)">
+            <summary>
+            将两个<see cref="T:System.Net.Sockets.Socket"/> 进行数据交换。
+            </summary>
+            <param name="server"></param>
+            <param name="client"></param>
+        </member>
+        <member name="M:DotNet.Linq.SocketExtension.ReceiveBytes(System.Net.Sockets.Socket,System.Int32)">
+            <summary>
+            同步接收指定长度的<see cref="T:System.Net.Sockets.Socket"/>数据包。
+            </summary>
+            <param name="client">要从读取的<see cref="T:System.Net.Sockets.Socket"/>对象。</param>
+            <param name="length">要接受的数据长度。</param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Linq.StreamExtension">
+            <summary>
+            <see cref="T:System.IO.Stream"/>扩展类
+            </summary>
+        </member>
+        <member name="M:DotNet.Linq.StreamExtension.Write(System.IO.Stream,System.Byte[])">
+            <summary>
+            将<see cref="T:System.Byte"/>写入到流。
+            </summary>
+            <param name="stream"></param>
+            <param name="bytes">要写入的字节</param>
+        </member>
+        <member name="M:DotNet.Linq.StreamExtension.WriteText(System.IO.Stream,System.String,System.Text.Encoding)">
+            <summary>
+            写入字符串到流。
+            </summary>
+            <param name="stream"></param>
+            <param name="text">要写入的文本</param>
+            <param name="encoding">要写入文本的编码</param>
+        </member>
+        <member name="M:DotNet.Linq.StreamExtension.ReadBytes(System.IO.Stream)">
+            <summary>
+            读取<see cref="T:System.IO.Stream"/>中所有的字节。
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Linq.StringExtension">
+            <summary>
+            <see cref="T:System.String"/>类控制。
+            </summary>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToIntPtr(System.String,System.Text.Encoding)">
+            <summary>
+            将字符串转换成字符串指针。
+            </summary>
+            <param name="text">要转换成指针的字符串.</param>
+            <param name="encoding">要使用的编码，如果为null则使用<see cref="P:System.Text.Encoding.UTF8"/></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToIntPtrString(System.IntPtr,System.Text.Encoding)">
+            <summary>
+            将字符串指针转换成字符串。
+            </summary>
+            <param name="ptr">要转换成字符串的指针.</param>
+            <param name="encoding">要使用的编码，如果为null则使用<see cref="P:System.Text.Encoding.UTF8"/></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToHexBytes(System.String)">
+            <summary>
+            将一个十六进制的<see cref="T:System.String"/>字符串转换成<see cref="T:System.Byte"/>字节数组。
+            </summary>
+            <param name="value">十六进制字符串。</param>
+            <returns>转换后的<see cref="T:System.Byte"/>字节数组。</returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToBytes(System.String,System.Text.Encoding)">
+            <summary>
+            将指定的 <see cref="T:System.String"/> 中的所有字符编码为<paramref name="encoding"/>一个字节序列。
+            </summary>
+            <param name="value">包含要编码的字符的 <see cref="T:System.String"/>。</param>
+            <param name="encoding">要使用的编码，如果为null则使用<see cref="P:System.Text.Encoding.UTF8"/></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToMD5(System.String,System.Byte[])">
+            <summary>
+            使用指定的密钥计算其MD5值。
+            </summary>
+            <param name="value">要计算的字符串。</param>
+            <param name="keyValue">密钥</param>
+            <returns>计算得到的Md5值。</returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToMD5(System.String,System.String)">
+            <summary>
+            使用指定的字符串密钥计算其MD5值。
+            </summary>
+            <param name="value">要计算的字符串。</param>
+            <param name="keyValue">字符串密钥</param>
+            <returns>计算得到的Md5值。</returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToMD5(System.String)">
+            <summary>
+            计算字符串的MD5值。
+            </summary>
+            <param name="value">要计算的字符串。</param>
+            <returns>计算得到的Md5值。</returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToInt32(System.String,System.Globalization.NumberStyles)">
+            <summary>
+            将指定的字符串转换成<see cref="T:System.Int32"/>类型，如果转换失败则结果不包含值。
+            </summary>
+            <param name="value"></param>
+            <param name="style"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToInt64(System.String,System.Globalization.NumberStyles)">
+            <summary>
+            将指定的字符串转换成<see cref="T:System.Int64"/>类型，如果转换失败则结果不包含值。
+            </summary>
+            <param name="value"></param>
+            <param name="style"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToDouble(System.String,System.Globalization.NumberStyles)">
+            <summary>
+            将指定的字符串转换成<see cref="T:System.Double"/>类型，如果转换失败则结果不包含值。
+            </summary>
+            <param name="value"></param>
+            <param name="style"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToDecimal(System.String,System.Globalization.NumberStyles)">
+            <summary>
+            将指定的字符串转换成<see cref="T:System.Decimal"/>类型，如果转换失败则结果不包含值。
+            </summary>
+            <param name="value"></param>
+            <param name="style"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToDateTime(System.String,System.String[])">
+            <summary>
+            将指定的字符串转换成<see cref="T:System.DateTime"/>类型，如果转换失败则结果不包含值。
+            </summary>
+            <param name="value"></param>
+            <param name="formats">指定字符串的时间格式。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToAESEncrypt(System.String,System.String)">
+            <summary>
+            将字符串进行AES加密
+            </summary>
+            <param name="value">要加密的字符串</param>
+            <param name="keyValue">用于加密和解密的对称密钥。长度必须为32位</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToAESEncrypt(System.String,System.Byte[])">
+            <summary>
+            将字符串进行AES加密
+            </summary>
+            <param name="value">要加密的字符串</param>
+            <param name="keyValue">用于加密和解密的对称密钥。长度必须为32位</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToAESDecrypt(System.String,System.String)">
+            <summary>
+            将字符串进行<see cref="T:System.Security.Cryptography.AesCryptoServiceProvider"/> AES解密
+            </summary>
+            <param name="value">要解密的字符串</param>
+            <param name="keyValue">用于加密和解密的对称密钥。长度必须为32位</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToAESDecrypt(System.String,System.Byte[])">
+            <summary>
+            将字符串进行<see cref="T:System.Security.Cryptography.AesCryptoServiceProvider"/> AES解密
+            </summary>
+            <param name="value">要解密的字符串</param>
+            <param name="keyValue">用于加密和解密的对称密钥。长度必须为32位</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToSortSHA1(System.String,System.String[])">
+            <summary>
+            计算指定字符串排序后的SHA1值
+            </summary>
+            <param name="separator">连接字符串数组的符号</param>
+            <param name="args">要排序计算的字符串数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToRSAEncrypt(System.String,System.Byte[])">
+            <summary>
+            <see cref="T:System.Security.Cryptography.RSA"/> 算法的实现执行不对称加密
+            </summary>
+            <param name="value">要加密的字符串。</param>
+            <param name="publeKey"><see cref="T:System.Security.Cryptography.RSA"/> 公共密钥。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToRSAEDecrypt(System.String,System.String)">
+            <summary>
+             <see cref="T:System.Security.Cryptography.RSA"/> 算法的实现执行不对称解密。
+            </summary>
+            <param name="value">要解密的字符串。</param>
+            <param name="privateKey"><see cref="T:System.Security.Cryptography.RSA"/> 私有密钥。</param>
+            <returns>已解密的数据，它是加密前的原始纯文本。</returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToBase64Bytes(System.String)">
+            <summary>
+            将指定的字符串（它将二进制数据编码为 Base64 数字）转换为等效的 8 位无符号整数数组。
+            </summary>
+            <param name="value"> 要转换的字符串。</param>
+            <returns>与 <paramref name="value"/> 等效的 8 位无符号整数数组。</returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToSortSHA1(System.String[],System.String)">
+            <summary>
+            计算指定字符串排序后的SHA1值
+            </summary>
+            <param name="args">要排序计算的字符串数组</param>
+            <param name="separator">连接字符串数组的符号</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToSHA1(System.String)">
+            <summary>
+            计算指定字符串排序后的SHA1值
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToHMACSHA256(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            将<see cref="T:System.Byte"/>数组进行HMAC-SHA256计算。
+            </summary>
+            <param name="value">要机密的数据。</param>
+            <param name="key"><see cref="T:System.Security.Cryptography.HMACSHA256"/>加密的机密密钥。密钥的长度不限，但如果超过 64 个字节，就会对其进行哈希计算（使用SHA-1），以派生一个 64 个字节的密钥。因此，建议的密钥大小为 64 个字节。</param>
+            <param name="encoding">要加密的编码，默认为ASCII</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToPinyin(System.String,System.String)">
+            <summary>
+            获取当前文本的拼音。
+            </summary>
+            <param name="value">要获取的汉字</param>
+            <param name="separator">连接拼音的符号</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ToPinyinInitials(System.String,System.String)">
+            <summary>
+            获取当前文本拼音的首字母。
+            </summary>
+            <param name="value">要获取的汉字</param>
+            <param name="separator">连接拼音的符号</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.JsonToObject``1(System.String)">
+            <summary>
+            将Json字符串转换成指定的类型的对象。
+            </summary>
+            <typeparam name="T">要转换的类型</typeparam>
+            <param name="value">json字符串。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.ReplaceByRegex``1(System.String,System.String,``0)">
+            <summary>
+            使用正则表达式替换
+            </summary>
+            <typeparam name="T">要替换的值的类型</typeparam>
+            <param name="text">要搜索匹配项的字符串。</param>
+            <param name="pattern">要匹配的正则表达式模式。</param>
+            <param name="data">要搜索替换的实体，如<paramref name="text"/>的值为"我的编号是:$Id$",<paramref name="pattern"/>的值是@"\$(\w+)\$",那么<paramref name="data"/>的值是new{Id=1}，即可替换成"我的编号是:1"</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.JsonToClass(System.String)">
+            <summary>
+            Json字符串转换成<see cref="T:DotNet.JsonData"/>动态访问类。
+            </summary>
+            <param name="json">Json字符串。</param>
+            <returns><see cref="T:DotNet.JsonData"/>动态访问类。</returns>
+        </member>
+        <member name="M:DotNet.Linq.StringExtension.UrlEncode(System.String,System.Text.Encoding,System.Boolean)">
+             <summary>
+             将指定的字符串进行url编码
+             <para>避坑腾讯AI开发的小写坑</para>
+             </summary>
+             <param name="text">要进行编码的字符串。</param>
+            <param name="encoding">要加密的编码，默认为UTF8</param>
+            <param name="isUpper">是否采用大写（比如：默认是%e8 如果转会成大写就是%E8 ）主要是腾讯那二逼的坑</param>
+             <returns></returns>
+        </member>
+        <member name="T:DotNet.Pinyin">
+            <summary>
+            汉字拼音
+            </summary>
+        </member>
+        <member name="M:DotNet.Pinyin.GetInitials(System.String,System.String)">
+            <summary>
+            取中文文本的拼音首字母
+            </summary>
+            <param name="text">编码为UTF8的文本</param>
+            <param name="separator">连接拼音的符号</param>
+            <returns>返回中文对应的拼音首字母</returns>
+        </member>
+        <member name="M:DotNet.Pinyin.GetInitials(System.String,System.Text.Encoding)">
+            <summary>
+            取中文文本的拼音首字母
+            </summary>
+            <param name="text">文本</param>
+            <param name="encoding">源文本的编码</param>
+            <returns>返回encoding编码类型中文对应的拼音首字母</returns>
+        </member>
+        <member name="M:DotNet.Pinyin.GetPinyin(System.String,System.String)">
+            <summary>
+            取中文文本的拼音
+            </summary>
+            <param name="text">编码为UTF8的文本</param>
+            <param name="separator">连接拼音的符号</param>
+            <returns>返回中文文本的拼音</returns>
+        </member>
+        <member name="M:DotNet.Pinyin.GetPinyin(System.String,System.Text.Encoding)">
+            <summary>
+            取中文文本的拼音
+            </summary>
+            <param name="text">编码为UTF8的文本</param>
+            <param name="encoding">源文本的编码</param>
+            <returns>返回encoding编码类型的中文文本的拼音</returns>
+        </member>
+        <member name="M:DotNet.Pinyin.GetChineseText(System.String)">
+            <summary>
+            取和拼音相同的汉字列表
+            </summary>
+            <param name="pinyin">编码为UTF8的拼音</param>
+            <returns>取拼音相同的汉字列表，如拼音“ai”将会返回“唉爱……”等</returns>
+        </member>
+        <member name="M:DotNet.Pinyin.GetChineseText(System.String,System.Text.Encoding)">
+            <summary>
+            取和拼音相同的汉字列表，编码同参数encoding
+            </summary>
+            <param name="pinyin">编码为encoding的拼音</param>
+            <param name="encoding">编码</param>
+            <returns>返回编码为encoding的拼音为pinyin的汉字列表，如拼音“ai”将会返回“唉爱……”等</returns>
+        </member>
+        <member name="M:DotNet.Pinyin.GetPinyin(System.Char)">
+            <summary>
+            返回单个字符的汉字拼音
+            </summary>
+            <param name="ch">编码为UTF8的中文字符</param>
+            <returns>ch对应的拼音</returns>
+        </member>
+        <member name="M:DotNet.Pinyin.GetPinyin(System.Char,System.Text.Encoding)">
+            <summary>
+            返回单个字符的汉字拼音
+            </summary>
+            <param name="ch">编码为encoding的中文字符</param>
+            <param name="encoding">编码</param>
+            <returns>编码为encoding的ch对应的拼音</returns>
+        </member>
+        <member name="M:DotNet.Pinyin.ConvertEncoding(System.String,System.Text.Encoding,System.Text.Encoding)">
+            <summary>
+            转换编码 
+            </summary>
+            <param name="text">文本</param>
+            <param name="srcEncoding">源编码</param>
+            <param name="dstEncoding">目标编码</param>
+            <returns>目标编码文本</returns>
+        </member>
+        <member name="M:DotNet.Pinyin.GetHashIndex(System.Char)">
+            <summary>
+            取文本索引值
+            </summary>
+            <param name="ch">字符</param>
+            <returns>文本索引值</returns>
+        </member>
+        <member name="T:DotNet.Resources">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:DotNet.Resources.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:DotNet.Resources.Culture">
+            <summary>
+              重写当前线程的 CurrentUICulture 属性
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="T:DotNet.Result">
+            <summary>
+            表示一个结果
+            </summary>
+        </member>
+        <member name="M:DotNet.Result.#ctor(DotNet.Result)">
+            <summary>
+            初始化有数据的结果
+            </summary>
+            <param name="result">使用一个结果初始化</param>
+        </member>
+        <member name="P:DotNet.Result.Message">
+            <summary>
+            获取或设置一个值，该值表示此结果的说明。
+            </summary>
+        </member>
+        <member name="P:DotNet.Result.Success">
+            <summary>
+            获取或设置一个值，该值表示此结果是否成功。
+            </summary>
+        </member>
+        <member name="P:DotNet.Result.Code">
+            <summary>
+            获取或设置一个值，该值表示此结果的数值。
+            </summary>
+        </member>
+        <member name="M:DotNet.Result.op_Implicit(System.Boolean)~DotNet.Result">
+            <summary>
+            将一个<see cref="T:System.Boolean"/>值转换成<see cref="T:DotNet.Result"/>结果。
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:DotNet.Result.op_Implicit(DotNet.Result)~System.Boolean">
+            <summary>
+            将一个<see cref="T:DotNet.Result"/>结果转换成<see cref="T:System.Boolean"/>值。
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="T:DotNet.Result`1">
+            <summary>
+            表示一个带有数据的结果
+            </summary>
+            <typeparam name="T">附加数据类型。</typeparam>
+        </member>
+        <member name="M:DotNet.Result`1.#ctor(DotNet.Result)">
+            <summary>
+            初始化有数据的结果
+            </summary>
+        </member>
+        <member name="P:DotNet.Result`1.Data">
+            <summary>
+            附加数据。
+            </summary>
+        </member>
+        <member name="M:DotNet.Result`1.op_Implicit(`0)~DotNet.Result{`0}">
+            <summary>
+            将一个<typeparamref name="T"/>对象转换成<see cref="T:DotNet.Result`1"/>对象。
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:DotNet.Result`1.op_Implicit(DotNet.Result{`0})~`0">
+            <summary>
+            将一个<sess name="Result{T}"/>对象转换成<typeparamref name="T"/>对象。
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:DotNet.Snowflake">
+            <summary>
+            标准的Snowflake算法,2010年开始  可以使用到2079年
+            <para>默认计算规则</para>
+            <para>第1位为0表示正数</para>
+            <para>第2-42位为毫秒级时间戳</para>
+            <para>第43-52位为工作机ID 最多1023台机器</para>
+            <para>第53-64位为序列号</para>
+            </summary>
+        </member>
+        <member name="T:DotNet.Snowflake.Config">
+            <summary>
+            配置信息。
+            </summary>
+        </member>
+        <member name="F:DotNet.Snowflake.Config.machineId">
+            <summary>
+            10个bit   最多1024台机器
+            </summary>
+        </member>
+        <member name="P:DotNet.Snowflake.Config.MachineId">
+            <summary>
+            获取或设置工作机ID  （10位） 最大值位1023
+            </summary>
+        </member>
+        <member name="P:DotNet.Snowflake.Config.MachineIdMask">
+            <summary>
+            获取最大机器编号
+            </summary>
+        </member>
+        <member name="F:DotNet.Snowflake.Config.machineIdBit">
+            <summary>
+            机器ID10个bit   最多1024台机器
+            </summary>
+        </member>
+        <member name="P:DotNet.Snowflake.Config.MachineIdBit">
+            <summary>
+            获取或设置机器Id的bit位。默认为10个bit位。
+            </summary>
+        </member>
+        <member name="F:DotNet.Snowflake.Config.sequenceBit">
+            <summary>
+             12 位  最多4095  
+            </summary>
+        </member>
+        <member name="P:DotNet.Snowflake.Config.SequenceBit">
+            <summary>
+             获取或设置序列号的bit位。默认为12个bit位。
+            </summary>
+        </member>
+        <member name="P:DotNet.Snowflake.Config.SequenceMask">
+            <summary>
+            获取最大序列号
+            </summary>
+        </member>
+        <member name="F:DotNet.Snowflake.Config.beginTicks">
+            <summary>
+            开始时间的计时周期数。
+            </summary>
+        </member>
+        <member name="P:DotNet.Snowflake.Config.BeginTicks">
+            <summary>
+            开始时间的计时周期数，默认为2010年1月1日
+            </summary>
+        </member>
+        <member name="F:DotNet.Snowflake.syncLook">
+            <summary>
+            加锁对象
+            </summary>
+        </member>
+        <member name="P:DotNet.Snowflake.Instance">
+            <summary>
+            获取<see cref="T:DotNet.Snowflake"/>对象。
+            </summary>
+        </member>
+        <member name="F:DotNet.Snowflake.lastTimestamp">
+            <summary>
+            最后时间戳
+            </summary>
+        </member>
+        <member name="F:DotNet.Snowflake.sequence">
+            <summary>
+            当前的序列号
+            </summary>
+        </member>
+        <member name="P:DotNet.Snowflake.Sequence">
+            <summary>
+            开始时间的计时周期数
+            </summary>
+        </member>
+        <member name="M:DotNet.Snowflake.NewId">
+            <summary>
+            产生一个新的Id
+            <para>第1位为0表示正数</para>
+            <para>第2-42位为毫秒级时间戳</para>
+            <para>第43-52位为工作机ID</para>
+            <para>第53-64位为序列号</para>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Snowflake.NewTimestamp">
+            <summary>
+            产生一个新的Timestamp
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Snowflake.CreateId">
+            <summary>
+            产生一个新的Id
+            <para>第1位为0表示正数</para>
+            <para>第2-42位为毫秒级时间戳</para>
+            <para>第43-52位为工作机ID</para>
+            <para>第53-64位为序列号</para>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Snowflake.GetDateTime(System.Int64)">
+            <summary>
+            获取ID中的时间戳
+            </summary>
+            <param name="id"><see cref="T:DotNet.Snowflake"/>生成的Id的编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Snowflake.DateTimeToEqualsId(System.DateTime)">
+            <summary>
+            将时间换算成可与<see cref="T:DotNet.Snowflake"/>的编号 
+            <para>大于<see cref="T:DotNet.Snowflake"/>的编号</para>
+            </summary>
+            <param name="dateTime">要转换的时间</param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.SR">
+            <summary>
+            资源读取文件
+            </summary>
+        </member>
+        <member name="M:DotNet.SR.#ctor(System.Reflection.Assembly,System.String)">
+            <summary>
+            使用指定的程序集初始化<see cref="T:DotNet.SR"/>新的实例。
+            </summary>
+            <param name="assembly">要获取资源的程序集</param>
+            <param name="resourceName">默认资源名称</param>
+        </member>
+        <member name="P:DotNet.SR.Current">
+            <summary>
+            获取当前正在执行的方法的资源读取类。
+            </summary>
+        </member>
+        <member name="M:DotNet.SR.GetString(System.String)">
+            <summary>
+            返回指定字符串资源的值。
+            </summary>
+            <param name="name">要检索的资源的名称。</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.SR.GetString(System.String,System.String)">
+            <summary>
+            返回指定字符串资源的值。
+            </summary>
+            <param name="name">要检索的资源的名称。</param>
+            <param name="cultureName">要获取资源字符串的语言名称，如zh-cn等</param>
+            <returns></returns>
+        </member>
+        <member name="P:DotNet.SR.CurrentAssembly">
+            <summary>
+            获取或设置一个值，该值指示要获取资源的程序集。
+            </summary>
+        </member>
+        <member name="P:DotNet.SR.Keys">
+            <summary>
+            获取此程序集中的所有资源的名称。
+            </summary>
+        </member>
+        <member name="P:DotNet.SR.ResourceName">
+            <summary>
+            资源名称。
+            </summary>
+        </member>
+        <member name="M:DotNet.SR.GetStream(System.String)">
+            <summary>
+            根据指定的资源名称获取资源文件流。
+            </summary>
+            <param name="fullName">资源文件名称（包含程序集名称和文件夹名称）</param>
+            <returns></returns>
+        </member>
+        <member name="P:DotNet.SR.Resource">
+            <summary>
+            默认资源
+            </summary>
+        </member>
+        <member name="P:DotNet.SR.Item(System.String)">
+            <summary>
+            获取资源文件管理类。
+            </summary>
+            <param name="name">资源的根名称。例如，名为“DotNet.MyResource.resources”的资源文件的根名称为“MyResource”或DotNet.MyResource。</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
