@@ -11,6 +11,7 @@
     <PackageReleaseNotes>基础类库,不兼容之前的1.*-~2.*的产品</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DotNet.Framework.pfx</AssemblyOriginatorKeyFile>
+    <PackageProjectUrl>https://github.com/hnlyf168/DotNet.Framework</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>\DotNet\DotNet.xml</DocumentationFile>
