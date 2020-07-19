@@ -15,7 +15,7 @@ namespace DotNet.Net
         where P : IDataPackage
     {
         private bool IsStart;
-        private List<T> clients = new List<T>();
+        private readonly List<T> clients = new List<T>();
         /// <summary>
         /// Tcp服务器
         /// </summary>
@@ -46,13 +46,15 @@ namespace DotNet.Net
         /// <param name="reuseAddress">是否运行端口复用</param>
         public virtual void Start(int port, IPAddress localaddr = null, bool reuseAddress = true)
         {
-            var serverSocketEP = new IPEndPoint(localaddr, port);
+            var serverSocketEP = new IPEndPoint(localaddr??IPAddress.Any, port);
             serverSocket = new Socket(serverSocketEP.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             if (reuseAddress)
             {
+                //serverSocket.ExclusiveAddressUse = true;
                 serverSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             }
-            serverSocket.Listen(0);
+            serverSocket.Bind(serverSocketEP);
+            serverSocket.Listen(int.MaxValue);
             serverSocket.BeginAccept(AcceptSocketCallback, serverSocket);
             IsStart = true;
             WriteLog($"服务启动，监听IP:{localaddr}，端口：{port}");

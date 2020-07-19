@@ -20,13 +20,13 @@ namespace DotNet
         /// <param name="text">日志内容</param>
         public static void WriteLog(string text)
         {
-            
+
             WriteLogFile(text, string.Empty);
         }
         private static void WriteLogFile(string text, string fileName)
         {
             Console.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}：{text}");
-
+            return;
             var path = System.IO.Path.Combine(LogPath, DateTime.Now.ToString("yyyy-MM"));
             try
             {

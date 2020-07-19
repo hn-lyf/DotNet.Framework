@@ -5,6 +5,7 @@
     /// </summary>
     public interface IDataPackage
     {
+
         /// <summary>
         /// 获取整个包的完整字节。
         /// </summary>

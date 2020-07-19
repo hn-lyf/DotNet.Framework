@@ -19,12 +19,12 @@ namespace DotNet
         {
             static Config()
             {
-                var snowflakeMachineId = Configuration.GetSetting("Snowflake:MachineId");
+                var snowflakeMachineId = Configuration.GetSetting("Snowflake:MachineId") ?? Configuration.GetSetting("DotNet:Snowflake:MachineId");
                 if (!string.IsNullOrWhiteSpace(snowflakeMachineId))
                 {
                     ushort.TryParse(snowflakeMachineId, out machineId);
                 }
-                var snowflakeBeginTicks = Configuration.GetSetting("Snowflake:BeginTicks");
+                var snowflakeBeginTicks = Configuration.GetSetting("Snowflake:BeginTicks")?? Configuration.GetSetting("DotNet:Snowflake:BeginTicks");
                 if (!string.IsNullOrWhiteSpace(snowflakeBeginTicks))
                 {
                     long.TryParse(snowflakeBeginTicks, out beginTicks);

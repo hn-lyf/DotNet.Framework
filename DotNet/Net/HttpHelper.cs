@@ -29,7 +29,7 @@ namespace DotNet.Net
         /// <summary>
         /// 获取或设置 User-agentHTTP 标头的值。
         /// </summary>
-        public string UserAgent { get; set; } = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36";
+        public string UserAgent { get; set; } = DotNet.Configuration.GetSetting("DotNet:HttpHelper:UserAgent")??"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36";
         /// <summary>
         /// 指定客户端为向服务器验证自身身份而出示的凭据。
         /// </summary>
@@ -374,7 +374,8 @@ namespace DotNet.Net
         {
             HttpWebRequest request = CreateRequest(url, headers);
             request.Method = "POST";
-            request.Accept = request.Accept ?? accept;
+            request.Accept = request.Accept
+                ?? accept;
             request.ContentType = contentType;
             byte[] postData;
             if (value is byte[])

@@ -21,7 +21,7 @@
         /// <summary>
         /// 获取或设置一个值，该值表示此结果的说明。
         /// </summary>
-        public virtual string Message { get; set; } = SR.Current.GetString("failed");
+        public virtual string Message { get; set; } = "失败";// SR.Current.GetString("failed");
         /// <summary>
         /// 获取或设置一个值，该值表示此结果是否成功。
         /// </summary>
@@ -36,7 +36,7 @@
         /// <param name="value"></param>
         public static implicit operator Result(bool value)
         {
-            return new Result() { Success = value, Message = value ? SR.Current.GetString("success") : SR.Current.GetString("failed") };
+            return new Result() { Success = value, Message = value ?"成功" : "失败" };
         }
         /// <summary>
         /// 将一个<see cref="Result"/>结果转换成<see cref="System.Boolean"/>值。
@@ -70,7 +70,7 @@
         /// <param name="value"></param>
         public static implicit operator Result<T>(T value)
         {
-            return new Result<T>() { Success = value != null, Message = value != null ? SR.Current.GetString("success") : SR.Current.GetString("failed"), Data = value };
+            return new Result<T>() { Success = value != null, Message = value != null ?  "成功" : "失败", Data = value };
         }
         /// <summary>
         /// 将一个<sess name="Result{T}"/>对象转换成<typeparamref name="T"/>对象。
