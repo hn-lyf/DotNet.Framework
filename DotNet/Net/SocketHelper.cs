@@ -188,7 +188,7 @@ namespace DotNet.Net
         /// <param name="text">日志内容</param>
         public virtual void WriteLog(string text)
         {
-          // Log.WriteLog($" 连接{RemoteEndPoint}-{text}");
+           Log.WriteLog($" 连接{RemoteEndPoint}-{text}");
         }
         /// <summary>
         /// 写入错误信息到日志。

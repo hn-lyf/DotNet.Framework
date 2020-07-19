@@ -66,7 +66,7 @@ namespace DotNet.Net.MQTT
             {
                 text = $"客户端编号：{ClientId}：{text}";
             }
-            // base.WriteLog(text);
+             base.WriteLog(text);
         }
         /// <summary>
         /// 使用<see cref="Socket"/>客户端初始化。
@@ -81,7 +81,7 @@ namespace DotNet.Net.MQTT
         /// </summary>
         protected override void OnClose()
         {
-            Console.WriteLine($"{ClientId}关闭连接");
+           // Console.WriteLine($"{ClientId}关闭连接");
         }
 
         /// <summary>
