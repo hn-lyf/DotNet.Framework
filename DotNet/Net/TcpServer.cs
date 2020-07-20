@@ -38,6 +38,7 @@ namespace DotNet.Net
         {
             Log.WriteErrorLog(text, exception);
         }
+        System.Timers.Timer timer = new System.Timers.Timer(1000);
         /// <summary>
         /// 启动监听的端口
         /// </summary>
@@ -46,7 +47,7 @@ namespace DotNet.Net
         /// <param name="reuseAddress">是否运行端口复用</param>
         public virtual void Start(int port, IPAddress localaddr = null, bool reuseAddress = true)
         {
-            var serverSocketEP = new IPEndPoint(localaddr??IPAddress.Any, port);
+            var serverSocketEP = new IPEndPoint(localaddr ?? IPAddress.Any, port);
             serverSocket = new Socket(serverSocketEP.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             if (reuseAddress)
             {
@@ -57,8 +58,18 @@ namespace DotNet.Net
             serverSocket.Listen(int.MaxValue);
             serverSocket.BeginAccept(AcceptSocketCallback, serverSocket);
             IsStart = true;
-            WriteLog($"服务启动，监听IP:{localaddr}，端口：{port}");
+            WriteLog($"服务启动，监听IP:{serverSocketEP.Address}，端口：{port}");
+          
+            timer.Elapsed += (o, e) =>
+            {
+                Console.Title = ($"当前客户端：{Clients.Length}个，每秒处理包：{count}个,总处理个数：{TotalCount}");
+                count = 0;
+            };
+
+            timer.Start();
         }
+        public static long TotalCount;
+        public static long count;
         /// <summary>
         /// 停止端口监听。
         /// </summary>

@@ -25,7 +25,9 @@ namespace DotNet
         }
         private static void WriteLogFile(string text, string fileName)
         {
+            return;
             Console.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}：{text}");
+           
             var path = System.IO.Path.Combine(LogPath, DateTime.Now.ToString("yyyy-MM"));
             try
             {

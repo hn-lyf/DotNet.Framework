@@ -66,7 +66,7 @@ namespace DotNet.Net.MQTT
             {
                 text = $"客户端编号：{ClientId}：{text}";
             }
-             base.WriteLog(text);
+            base.WriteLog(text);
         }
         /// <summary>
         /// 使用<see cref="Socket"/>客户端初始化。
@@ -81,7 +81,7 @@ namespace DotNet.Net.MQTT
         /// </summary>
         protected override void OnClose()
         {
-           // Console.WriteLine($"{ClientId}关闭连接");
+             Console.WriteLine($"{ClientId}关闭连接");
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace DotNet.Net.MQTT
                         OnPingRequest(dataPackage);
                         break;
                     case MessageType.Publish:
-                        OnPublishPackage(dataPackage);
+                        OnPublishPackage(dataPackage).Wait();
                         break;
                     case MessageType.UnSubscribe:
                         OnUnSubscribe(dataPackage);
@@ -165,7 +165,7 @@ namespace DotNet.Net.MQTT
                             {
                                 package.Data[2] = 1;
                             }
-                            //SendPackage(package);
+                            SendPackage(package);
                         }
                     }
                 }
@@ -297,6 +297,7 @@ namespace DotNet.Net.MQTT
                 client.Data.Close();
             }
             ClientId = connectDataPackage.ClientId;
+            Console.WriteLine($"{ClientId}上线");
             this.KeepAlive = Convert.ToInt32(connectDataPackage.KeepAlive * 1000 * 1.5);
             var package = new ConnectAckDataPackage() { Result = result };
             SendPackage(package);
@@ -318,6 +319,7 @@ namespace DotNet.Net.MQTT
         /// <returns></returns>
         protected virtual Result OnClientConnect(ConnectDataPackage message)
         {
+
             WriteLog($"客户端{message.ProtocolName}连接,客户端编号{message.ClientId},用户名：{message.UserName}，密码：{message.Password},CeanSession:{message.CeanSession}");
             return true;
         }
@@ -355,6 +357,8 @@ namespace DotNet.Net.MQTT
             resultPackage.Data = package;
             resultPackage.Success = true;
             resultPackage.Message = "获取包成功";
+            System.Threading.Interlocked.Increment(ref MQTTServer.count);
+            System.Threading.Interlocked.Increment(ref MQTTServer.TotalCount);
             return resultPackage;
         }
         /// <summary>
