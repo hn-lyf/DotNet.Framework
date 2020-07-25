@@ -119,20 +119,24 @@ namespace DotNet.Linq
         /// 将一个<see cref="Byte"/>字节数组转换成一个十六进制字符串。
         /// </summary>
         /// <param name="bytes">要转换的字节数组。</param>
+        /// <param name="index">要开始转换的索引。</param>
+        /// <param name="count">要转换的个数</param>
         /// <returns>一个十六进制字符串。</returns>
-        public static string ToHexString(this byte[] bytes)
+        public static string ToHexString(this byte[] bytes, int index = 0, int count = -1)
         {
             int num = bytes.Length * 2;
-            char[] chArray = new char[num];
-            int num3 = 0;
-            int index;
-            for (index = 0; index < num; index += 2)
+            StringBuilder stringBuilder = new StringBuilder();
+            while (index < bytes.Length)
             {
-                byte num4 = bytes[num3++];
-                chArray[index] = GetHexValue(num4 / 0x10);
-                chArray[index + 1] = GetHexValue(num4 % 0x10);
+                byte num4 = bytes[index++];
+                stringBuilder.Append(GetHexValue(num4 / 0x10));
+                stringBuilder.Append(GetHexValue(num4 % 0x10));
+                if (count == -1 && stringBuilder.Length == count * 2)
+                {
+                    break;
+                }
             }
-            return new string(chArray, 0, chArray.Length);
+            return stringBuilder.ToString();
         }
         private static char GetHexValue(int i)
         {

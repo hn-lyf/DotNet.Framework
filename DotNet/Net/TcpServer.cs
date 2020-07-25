@@ -38,7 +38,6 @@ namespace DotNet.Net
         {
             Log.WriteErrorLog(text, exception);
         }
-        System.Timers.Timer timer = new System.Timers.Timer(1000);
         /// <summary>
         /// 启动监听的端口
         /// </summary>
@@ -59,17 +58,7 @@ namespace DotNet.Net
             serverSocket.BeginAccept(AcceptSocketCallback, serverSocket);
             IsStart = true;
             WriteLog($"服务启动，监听IP:{serverSocketEP.Address}，端口：{port}");
-          
-            timer.Elapsed += (o, e) =>
-            {
-                Console.Title = ($"当前客户端：{Clients.Length}个，每秒处理包：{count}个,总处理个数：{TotalCount}");
-                count = 0;
-            };
-
-            timer.Start();
         }
-        public static long TotalCount;
-        public static long count;
         /// <summary>
         /// 停止端口监听。
         /// </summary>

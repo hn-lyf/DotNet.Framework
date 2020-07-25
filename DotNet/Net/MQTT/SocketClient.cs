@@ -81,7 +81,7 @@ namespace DotNet.Net.MQTT
         /// </summary>
         protected override void OnClose()
         {
-             Console.WriteLine($"{ClientId}关闭连接");
+            Console.WriteLine($"{ClientId}关闭连接");
         }
 
         /// <summary>
@@ -303,6 +303,7 @@ namespace DotNet.Net.MQTT
             SendPackage(package);
 
         }
+
         /// <summary>
         /// 发送一个标准的mqtt包到客户端连接。
         /// </summary>
@@ -357,8 +358,6 @@ namespace DotNet.Net.MQTT
             resultPackage.Data = package;
             resultPackage.Success = true;
             resultPackage.Message = "获取包成功";
-            System.Threading.Interlocked.Increment(ref MQTTServer.count);
-            System.Threading.Interlocked.Increment(ref MQTTServer.TotalCount);
             return resultPackage;
         }
         /// <summary>

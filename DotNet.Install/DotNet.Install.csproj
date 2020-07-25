@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;netcoreapp2.2</TargetFrameworks>
+    <Authors>中国.NET研究协会</Authors>
+    <Company>中国.NET研究协会</Company>
+    <Copyright>中国.NET研究协会</Copyright>
+    <Description>
+      简单方便的将.Net Core程序以服务启动，支持Window和Unix环境。QQ群：45132984
+      使用代码： DotNet.Install.ServiceInstall.Run("test", args, (a) =&gt; { }, "服务器", "服务器说明");
+      -i 安装
+      -u 卸载
+      -d 调试
+    </Description>
+    <Product>程序安装</Product>
+    <Version>3.0.0</Version>
+    <PackageId>DotNet.Install</PackageId>
+    <PackageTags>Core 服务,CentOS 服务，Service</PackageTags>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>DotNet.Framework.pfx</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  
+<ItemGroup>
+    <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="4.7.0" />
+  </ItemGroup>
+</Project>
