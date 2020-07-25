@@ -27,7 +27,7 @@ namespace DotNet.Web.Linq
             var obj = httpContext.Session[httpContext.Session.SessionID];
             if (obj != null)
             {
-                return (T)obj;
+                return obj.ToString().JsonToObject<T>();
             }
 #else
             var json = httpContext.Session.GetString(httpContext.Session.Id);
@@ -37,6 +37,20 @@ namespace DotNet.Web.Linq
             }
 #endif
             return new Result<T>() { Code = -9999, Message = "尚未登录或登录超时" };
+        }
+        /// <summary>
+        /// 设置登录信息。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="httpContext"></param>
+        /// <param name="loginVal">要保存的登录信息。</param>
+        public static void SetLogin<T>(this HttpContext httpContext, T loginVal)
+        {
+#if NETFRAMEWORK
+            httpContext.Session[httpContext.Session.SessionID] = loginVal.ToJson();
+#else
+            httpContext.Session.SetString(httpContext.Session.Id, loginVal.ToJson());
+#endif
         }
     }
 }
