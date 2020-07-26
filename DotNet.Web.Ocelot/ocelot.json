@@ -1,0 +1,29 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        },
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/acc/{everything}",
+      "DelegatingHandlers": [
+        "GraphQlDelegatingHandler"
+      ],
+      //负载均衡的设置
+      "LoadBalancerOptions": {
+        //LeastConnection将请求发往最空闲的那个服务器
+        //RoundRobin轮流发送
+        //NoLoadBalance"总是发往第一个请求或者是服务发现"
+        "Type": "LeastConnection"
+      }
+    }
+  ]
+}

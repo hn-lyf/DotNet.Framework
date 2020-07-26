@@ -114,6 +114,11 @@ namespace DotNet.Net.MQTT
         {
             return SendPackage(new TopicDataPackage(MessageType.Subscribe) { Topic = topic, Identifier = ++Identifier, RequestedQoS = requestedQoS });
         }
+        /// <summary>
+        /// 当心跳连接到达。
+        /// </summary>
+        /// <param name="keepAlive"></param>
+        /// <returns></returns>
         protected virtual Task OnKeepAlive(int keepAlive)
         {
 #if NET40
@@ -150,11 +155,6 @@ namespace DotNet.Net.MQTT
 #endif
 
         }
-        protected override void OnHeartbeatTimerCallback(object state)
-        {
-
-            base.OnHeartbeatTimerCallback(state);
-        }
         /// <summary>
         /// 获取一个长度数据
         /// </summary>
@@ -184,6 +184,10 @@ namespace DotNet.Net.MQTT
             }
             return msgLength;
         }
+        /// <summary>
+        /// 接收包
+        /// </summary>
+        /// <returns></returns>
         protected override Result<MQTTDataPackage> ReceivePackage()
         {
             Result<byte[]> result;
@@ -216,7 +220,9 @@ namespace DotNet.Net.MQTT
             resultPackage.Message = "获取包成功";
             return resultPackage;
         }
-
+        /// <summary>
+        /// 关闭包
+        /// </summary>
         protected override void OnClose()
         {
             //
@@ -333,6 +339,11 @@ namespace DotNet.Net.MQTT
             WriteLog($"客户端{message.ClientId}发布消息{message.Topic},QoS{message.QoS}。内容：{message.Text}");
             return true;
         }
+        /// <summary>
+        /// 发送包。
+        /// </summary>
+        /// <param name="package"></param>
+        /// <returns></returns>
         public virtual Result<MQTTDataPackage> SendPackage(MQTTDataPackage package)
         {
             try

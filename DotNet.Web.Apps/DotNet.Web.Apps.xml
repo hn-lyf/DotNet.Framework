@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotNet.Web.Apps</name>
+    </assembly>
+    <members>
+        <member name="T:DotNet.Web.Apps.Controllers.AccountController">
+            <summary>
+            授权中心。
+            </summary>
+        </member>
+        <member name="M:DotNet.Web.Apps.Controllers.AccountController.#ctor(Microsoft.Extensions.Logging.ILogger{DotNet.Web.Apps.Controllers.AccountController})">
+            <summary>
+            初始化授权中心。
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:DotNet.Web.Apps.Controllers.AccountController.Login(DotNet.Web.Apps.Models.LoginDTO)">
+            <summary>
+            用户登录。
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Web.Apps.Controllers.AccountController.Info">
+            <summary>
+            获取登录用户信息。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Web.Apps.Controllers.ApiController">
+            <summary>
+            Api控制基类。
+            </summary>
+        </member>
+        <member name="T:DotNet.Web.Apps.Controllers.BaseController">
+            <summary>
+            控制器基类。
+            </summary>
+        </member>
+        <member name="P:DotNet.Web.Apps.Controllers.BaseController.LoginUser">
+            <summary>
+            登录用户信息。
+            </summary>
+        </member>
+        <member name="M:DotNet.Web.Apps.Controllers.TestController.Get">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Web.Apps.Filters.ApiLogAsyncActionFilter">
+            <summary>
+            日志记录器。
+            </summary>
+        </member>
+        <member name="T:DotNet.Web.Apps.Models.LoginDTO">
+            <summary>
+            登录实体。
+            </summary>
+        </member>
+        <member name="P:DotNet.Web.Apps.Models.LoginDTO.UserName">
+            <summary>
+            登录用户名
+            </summary>
+        </member>
+        <member name="P:DotNet.Web.Apps.Models.LoginDTO.Password">
+            <summary>
+            登录密码
+            </summary>
+        </member>
+        <member name="T:DotNet.Web.Apps.Models.LoginUserInfo">
+            <summary>
+            用户信息。
+            </summary>
+        </member>
+        <member name="P:DotNet.Web.Apps.Models.LoginUserInfo.Id">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="T:DotNet.Web.Apps.Models.LoginResult">
+            <summary>
+            登录信息返回。
+            </summary>
+        </member>
+        <member name="P:DotNet.Web.Apps.Models.LoginResult.Token">
+            <summary>
+            验证的token值。
+            </summary>
+        </member>
+        <member name="P:DotNet.Web.Apps.Startup.Configuration">
+            <summary>
+            配置信息
+            </summary>
+        </member>
+        <member name="P:DotNet.Web.Apps.Startup.WebHostEnvironment">
+            <summary>
+            网站启动信息
+            </summary>
+        </member>
+    </members>
+</doc>

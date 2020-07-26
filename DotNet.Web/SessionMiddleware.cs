@@ -10,6 +10,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using DotNet.Linq;
 
 namespace DotNet.Web
 {
@@ -69,22 +70,26 @@ namespace DotNet.Web
             Func<bool> tryEstablishSession = ReturnTrue;
             var headerName = DotNet.Configuration.Config.GetSection("Session:HeaderName").Value ?? _options.Cookie.Name;
             var cookieValue = context.Request.Headers[headerName].ToString();
-            
+
             if (string.IsNullOrWhiteSpace(cookieValue))
             {
                 cookieValue = context.Request.Cookies[_options.Cookie.Name];
             }
-            var sessionKey = CookieProtection.Unprotect(_dataProtector, cookieValue, _logger);
+            var sessionKey = cookieValue;
             if (string.IsNullOrWhiteSpace(sessionKey) || sessionKey.Length != SessionKeyLength)
             {
                 // No valid cookie, new session.
                 var guidBytes = new byte[16];
                 CryptoRandom.GetBytes(guidBytes);
-                sessionKey = $"{new Guid(guidBytes):n}{Guid.NewGuid():n}";
-                cookieValue = CookieProtection.Protect(_dataProtector, sessionKey);
+                cookieValue = $"{new Guid(guidBytes):n}{Guid.NewGuid():n}";
+                sessionKey = cookieValue.ToMD5();
                 var establisher = new SessionEstablisher(context, cookieValue, _options);
                 tryEstablishSession = establisher.TryEstablishSession;
                 isNewSessionKey = true;
+            }
+            else
+            {
+                sessionKey = cookieValue.ToMD5();
             }
 
             var feature = new SessionFeature

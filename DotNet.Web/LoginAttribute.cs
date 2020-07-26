@@ -20,6 +20,7 @@ namespace DotNet.Web
     /// </summary>
     public class LoginAttribute : ActionFilterAttribute
     {
+        public static DotNet.Result NoLoginResult = new Result() { Success = false, Message = "您尚未登陆或登陆超时", Code = -999 };
         /// <summary>
         /// 设置返回结果是否为json格式
         /// </summary>
@@ -42,7 +43,7 @@ namespace DotNet.Web
                 {
                     if (IsJson)
                     {
-                        context.Result = new JsonResult() { Data = new Result() { Success = false, Message = "您尚未登陆或登陆超时", Code = -999 } };
+                        context.Result = new JsonResult() { Data =NoLoginResult};
                     }
                     else
                     {
@@ -59,7 +60,7 @@ namespace DotNet.Web
                 {
                     if (IsJson)
                     {
-                        context.Result = new JsonResult(new Result() { Success = false, Message = "您尚未登陆或登陆超时", Code = -999 });
+                        context.Result = new JsonResult(NoLoginResult);
                     }
                     else
                     {

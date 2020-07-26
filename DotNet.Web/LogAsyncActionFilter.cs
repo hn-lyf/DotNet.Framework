@@ -11,7 +11,7 @@ namespace DotNet.Web
     /// </summary>
     public abstract class LogAsyncActionFilter : IAsyncActionFilter
     {
-        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        public virtual async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var requestId = DotNet.Snowflake.NewId();
             _ = OnBeginLog(requestId, context.HttpContext.Request.Path.ToString(), context.ActionArguments, context.HttpContext.Connection.RemoteIpAddress.ToString(), context);

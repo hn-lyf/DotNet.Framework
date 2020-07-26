@@ -21,7 +21,6 @@ namespace DotNet.Net.MQTT
         /// <summary>
         /// 初始化连接包
         /// </summary>
-        /// <param name="message">协议类型</param>
         public PublishDataPackage() : base(MessageType.Publish)
         {
 

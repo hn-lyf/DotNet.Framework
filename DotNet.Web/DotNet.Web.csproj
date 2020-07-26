@@ -12,6 +12,7 @@
     <Compile Remove="SessionMiddleware.cs" />
     <Compile Remove="FormContentFormatter.cs" />
     <Compile Remove="LogAsyncActionFilter.cs" />
+    <Compile Remove="ApiLogAsyncActionFilter.cs" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net4.0'">
     <Compile Remove="LoginAttribute.cs" />
