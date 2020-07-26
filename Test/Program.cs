@@ -13,8 +13,12 @@ namespace Test
         static long TotalCount;
         static void Main(string[] ass)
         {
-
-
+            HttpServer httpServer = new HttpServer();
+            httpServer.Start();
+            httpServer.ApiHandles.Add("/HttpApi/", typeof(HttpApiHandle));
+            //httpServer.AddStaticFile("/httpapi/html", @"G:\webs\TunelManagementTest");
+            httpServer.WorkPath = @"G:\webs\TunelManagementTest";
+            Console.WriteLine("服务启动");
             HttpHelper.Default.Get("http://www.qq.com");
 
             Console.ReadLine();
@@ -23,6 +27,19 @@ namespace Test
         private static void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
 
+        }
+    }
+    public class HttpApiHandle : IHttpApiHandle
+    {
+        public HttpRequest Request { get; protected set; }
+
+        public void OnRequest(HttpRequest request)
+        {
+            Request = request;
+        }
+        public DotNet.Result Add(long id)
+        {
+            return new DotNet.Result<long>(true) { Data = id };
         }
     }
 }
