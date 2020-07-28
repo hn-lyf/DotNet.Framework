@@ -47,7 +47,7 @@ namespace DotNet.Web.Apps.Controllers
         public Result<LoginUserInfo> Info()
         {
             var result = LoginUser;
-            result.Message += $",Id:{Startup.Configuration.GetSection("id").Value}{Guid.NewGuid()}";
+            result.Message += $",服务器编号:{Startup.Configuration.GetSection("id").Value}，服务器IP:{HttpContext.Connection.LocalIpAddress}-,客户端IP：{HttpContext.Request.Headers["X-Forwarded-For"]}-{Guid.NewGuid()}";
             return result;
         }
     }

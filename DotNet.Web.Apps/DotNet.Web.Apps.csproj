@@ -8,6 +8,7 @@
     <DocumentationFile>E:\项目\框架\DotNet.Framework\DotNet.Web.Apps\DotNet.Web.Apps.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Consul" Version="1.6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.5" />
     <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
@@ -25,4 +26,5 @@
     <Folder Include="Areas\Sys\Models\" />
     <Folder Include="Areas\Sys\Views\" />
   </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>

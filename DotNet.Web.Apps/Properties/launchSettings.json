@@ -17,11 +17,10 @@
     },
     "DotNet.Web.Apps": {
       "commandName": "Project",
-      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5002"
+      "applicationUrl": "http://192.168.0.8:5002"
     }
   }
 }

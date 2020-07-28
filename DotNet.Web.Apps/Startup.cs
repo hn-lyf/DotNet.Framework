@@ -72,6 +72,7 @@ namespace DotNet.Web.Apps
                 o.Cookie.Name = "uuid";
                 o.IdleTimeout = TimeSpan.FromHours(24);
             });
+            services.AddConsulConfig(Configuration);
             services.AddControllersWithViews((options) =>
             {
                 options.Filters.Add(new Filters.ApiLogAsyncActionFilter());
@@ -101,6 +102,7 @@ namespace DotNet.Web.Apps
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseConsul();
             app.UseStaticFiles();
             app.UseMySession();
             app.UseRouting();

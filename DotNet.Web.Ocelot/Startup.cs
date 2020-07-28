@@ -9,8 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Ocelot.Configuration;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.ServiceDiscovery.Providers;
+using Ocelot.Provider.Consul;
 
 namespace DotNet.Web.Ocelot
 {
@@ -27,8 +30,9 @@ namespace DotNet.Web.Ocelot
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddOcelot(Configuration);
-           //services.AddOcelotJwtAuthorize();
+           // Func<IServiceProvider, DownstreamRoute, IServiceDiscoveryProvider, CustomLoadBalancer> loadBalancerFactoryFunc = (serviceProvider, Route, serviceDiscoveryProvider) => new CustomLoadBalancer(serviceDiscoveryProvider.Get);
+            services.AddOcelot(Configuration).AddConsul();//.AddCustomLoadBalancer<CustomLoadBalancer>(loadBalancerFactoryFunc)
+                                                          //services.AddOcelotJwtAuthorize();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

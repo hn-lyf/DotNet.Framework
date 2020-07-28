@@ -6,24 +6,38 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 5000
         },
         {
-          "Host": "localhost",
-          "Port": 5000
+          "Host": "my.hnlyf.com",
+          "Port": 5002
         }
+
       ],
-      "UpstreamPathTemplate": "/acc/{everything}",
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-For": "{RemoteIpAddress}"
+      },
+      "UpstreamPathTemplate": "/authorize/{everything}",
       "DelegatingHandlers": [
-        "GraphQlDelegatingHandler"
+        "GraphQlDelegatingHandler" //GraphQlDelegatingHandler
       ],
+      "UseServiceDiscovery": true,
+      "ServiceName": "my",
       //负载均衡的设置
       "LoadBalancerOptions": {
         //LeastConnection将请求发往最空闲的那个服务器
         //RoundRobin轮流发送
-        //NoLoadBalance"总是发往第一个请求或者是服务发现"
+        //NoLoadBalancer"总是发往第一个请求或者是服务发现"
         "Type": "LeastConnection"
       }
     }
-  ]
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "127.0.0.1",
+      "Port": 8500,
+      "Type": "Consul",
+      "PollingInterval": 100
+    }
+  }
 }

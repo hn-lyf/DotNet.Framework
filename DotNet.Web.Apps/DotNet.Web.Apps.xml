@@ -43,6 +43,11 @@
             登录用户信息。
             </summary>
         </member>
+        <member name="T:DotNet.Web.Apps.Controllers.HealthController">
+            <summary>
+            微服务检测
+            </summary>
+        </member>
         <member name="M:DotNet.Web.Apps.Controllers.TestController.Get">
             <summary>
             
