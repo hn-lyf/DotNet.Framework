@@ -12,7 +12,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DotNet.Framework.pfx</AssemblyOriginatorKeyFile>
     <PackageProjectUrl>https://github.com/hnlyf168/DotNet.Framework</PackageProjectUrl>
-    <PackageId>DotNetCN</PackageId>
+    <PackageId>DotNet</PackageId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>\DotNet\DotNet.xml</DocumentationFile>

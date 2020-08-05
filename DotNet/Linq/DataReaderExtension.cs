@@ -24,9 +24,11 @@ namespace DotNet.Linq
             {
                 List<T> list = new List<T>();
                 var modelType = typeof(T);
-                while (dataReader.Read())
+                var result = dataReader.ToModel<T>(modelType);
+                while (result.Success)
                 {
-                    list.Add(dataReader.ToModel<T>(modelType));
+                    list.Add(result.Data);
+                    result = dataReader.ToModel<T>(modelType);
                 }
                 return list;
             }
@@ -40,20 +42,24 @@ namespace DotNet.Linq
         /// <param name="dataReader"></param>
         /// <param name="type">如果为null则为<typeparamref name="T"/>类型</param>
         /// <returns></returns>
-        public static T ToModel<T>(this IDataReader dataReader, Type type = null)
+        public static Result<T> ToModel<T>(this IDataReader dataReader, Type type = null)
         {
-            T model = Activator.CreateInstance<T>();
-
-            for (int i = 0; i < dataReader.FieldCount; i++)
+            if (dataReader.Read())
             {
-                if (dataReader[i].IsNull())
+                T model = Activator.CreateInstance<T>();
+
+                for (int i = 0; i < dataReader.FieldCount; i++)
                 {
-                    continue;
+                    if (dataReader[i].IsNull())
+                    {
+                        continue;
+                    }
+                    PropertyInfo property = (type ?? typeof(T)).GetProperty(dataReader.GetName(i), BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                    property?.SetValue(model, dataReader[i].ChangeType(property.PropertyType), null);
                 }
-                PropertyInfo property = (type ?? typeof(T)).GetProperty(dataReader.GetName(i), BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-                property?.SetValue(model, dataReader[i].ChangeType(property.PropertyType), null);
+                return model;
             }
-            return model;
+            return new Result<T>();
         }
     }
 }

@@ -152,7 +152,7 @@ namespace DotNet.Linq
                     var nameObjectCollection = value as NameValueCollection;
                     foreach (string key in nameObjectCollection.Keys)
                     {
-                        yield return new KeyValuePair<string, object>(key.ToString(), nameObjectCollection);
+                        yield return new KeyValuePair<string, object>(key.ToString(), nameObjectCollection[key]);
                     }
                 }
                 else if (value is IEnumerable<KeyValuePair<string, object>> enumerable1)

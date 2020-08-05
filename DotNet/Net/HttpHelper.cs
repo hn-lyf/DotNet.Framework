@@ -342,7 +342,7 @@ namespace DotNet.Net
                 }
             }
             HttpWebRequest request = CreateRequest(url, headers);
-            request.ContentType = "text/html";
+            request.ContentType = "application/json, text/plain, */*";
             request.Method = "GET";
             return this.GetResult(request);
         }
@@ -384,6 +384,7 @@ namespace DotNet.Net
             }
             else
             {
+                var p = GetParameter(value);
                 postData = Encoding.UTF8.GetBytes(GetParameter(value));
             }
             return GetResult(request, postData);

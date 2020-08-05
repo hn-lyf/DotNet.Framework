@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Text;
 using DotNet.Linq;
@@ -14,14 +15,8 @@ namespace Test
         static long TotalCount;
         static void Main(string[] ass)
         {
-            HttpServer httpServer = new HttpServer();
-            httpServer.Start();
-            httpServer.ApiHandles.Add("/HttpApi/", typeof(HttpApiHandle));
-            //httpServer.AddStaticFile("/httpapi/html", @"G:\webs\TunelManagementTest");
-            httpServer.WorkPath = @"G:\webs\TunelManagementTest";
-            Console.WriteLine("服务启动");
-            HttpHelper.Default.Get("http://www.qq.com");
-            Process.Start("explorer.exe", "http://127.0.0.1:8089");
+            
+            Console.WriteLine("结束？");
             Console.ReadLine();
         }
 
