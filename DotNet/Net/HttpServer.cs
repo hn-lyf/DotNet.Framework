@@ -89,52 +89,59 @@ namespace DotNet.Net
             }
             if (context != null)
             {
-                var request = new HttpRequest(context);
-                using (var response = context.Response)
+                OnRequest(new HttpRequest(context));
+            }
+        }
+        /// <summary>
+        /// 当收到请求时发生。
+        /// </summary>
+        /// <param name="request"></param>
+        protected virtual void OnRequest(HttpRequest request)
+        {
+            using (var response = request.Context.Response)
+            {
+                var apiHandle = ApiHandles.FirstOrDefault((item) => request.Url.AbsolutePath.StartsWith(item.Key, StringComparison.OrdinalIgnoreCase));
+                if (!string.IsNullOrEmpty(apiHandle.Key))//api处理器
                 {
-                    var apiHandle = ApiHandles.FirstOrDefault((item) => request.Url.AbsolutePath.StartsWith(item.Key, StringComparison.OrdinalIgnoreCase));
-                    if (!string.IsNullOrEmpty(apiHandle.Key))//api处理器
+                    response.AddHeader("Content-type", "application/json;charset=utf-8");//添加响应头信息
+                    response.ContentEncoding = Encoding.UTF8;
+                    DotNet.Result result = new DotNet.Result() { Message = "系统错误" };
+                    try
                     {
-                        context.Response.AddHeader("Content-type", "application/json;charset=utf-8");//添加响应头信息
-                        context.Response.ContentEncoding = Encoding.UTF8;
-                        DotNet.Result result = new DotNet.Result() { Message = "系统错误" };
-                        try
-                        {
-                            result = OnBeginRequest(request, apiHandle);
-                        }
-                        catch (Exception ex)
-                        {
-                            result = new DotNet.Result() { Message = "系统错误:" + ex.Message };
-                        }
-                        finally
-                        {
-                            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(context.Response.OutputStream))
-                            {
-                                sw.Write(result.ToJson());
-                            }
-                        }
-                        response.Close();
-                        return;
+                        result = OnBeginRequest(request, apiHandle);
                     }
-                    var staticFile = StaticFiles.FirstOrDefault((item) => request.Url.AbsolutePath.StartsWith(item.Key, StringComparison.OrdinalIgnoreCase));
-                    if (!string.IsNullOrEmpty(staticFile.Value))//静态资源
+                    catch (Exception ex)
                     {
-                        var path = staticFile.Value;
-                        var urlPath = request.Url.AbsolutePath.Remove(0, staticFile.Key.Length);
-                        if (!string.IsNullOrEmpty(urlPath))
-                        {
-                            urlPath = urlPath.Remove(0, 1).Replace('/', System.IO.Path.DirectorySeparatorChar);
-                        }
-                        WriteStaticFile(request, urlPath, staticFile.Value);
-                        return;
+                        result = new DotNet.Result() { Message = "系统错误:" + ex.Message };
                     }
-                    else
+                    finally
                     {
-                        WriteStaticFile(request, request.Url.AbsolutePath.Remove(0, 1), WorkPath);
-                        return;
+                        using (System.IO.StreamWriter sw = new System.IO.StreamWriter(response.OutputStream))
+                        {
+                            sw.Write(result.ToJson());
+                        }
                     }
-
+                    response.Close();
+                    return;
                 }
+                var staticFile = StaticFiles.FirstOrDefault((item) => request.Url.AbsolutePath.StartsWith(item.Key, StringComparison.OrdinalIgnoreCase));
+                if (!string.IsNullOrEmpty(staticFile.Value))//静态资源
+                {
+                    var path = staticFile.Value;
+                    var urlPath = request.Url.AbsolutePath.Remove(0, staticFile.Key.Length);
+                    if (!string.IsNullOrEmpty(urlPath))
+                    {
+                        urlPath = urlPath.Remove(0, 1).Replace('/', System.IO.Path.DirectorySeparatorChar);
+                    }
+                    WriteStaticFile(request, urlPath, staticFile.Value);
+                    return;
+                }
+                else
+                {
+                    WriteStaticFile(request, request.Url.AbsolutePath.Remove(0, 1), WorkPath);
+                    return;
+                }
+
             }
         }
         /// <summary>

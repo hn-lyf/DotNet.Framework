@@ -114,7 +114,7 @@ namespace DotNet.Net
         /// <returns></returns>
         public virtual Task OnReceiveAsync()
         {
-            return Task.Factory.StartNew(OnReceive);
+            return Task.Factory.StartNew(OnReceive, TaskCreationOptions.LongRunning);
         }
 #else
         /// <summary>
@@ -123,10 +123,10 @@ namespace DotNet.Net
         /// <returns></returns>
         public virtual async Task OnReceiveAsync()
         {
-            await Task.Run(() =>
+            await Task.Factory.StartNew(() =>
             {
                 OnReceive();
-            });
+            }, TaskCreationOptions.LongRunning);
         }
 #endif
 
@@ -188,7 +188,7 @@ namespace DotNet.Net
         /// <param name="text">日志内容</param>
         public virtual void WriteLog(string text)
         {
-           Log.WriteLog($" 连接{RemoteEndPoint}-{text}");
+            Log.WriteLog($" 连接{RemoteEndPoint}-{text}");
         }
         /// <summary>
         /// 写入错误信息到日志。
@@ -197,7 +197,7 @@ namespace DotNet.Net
         /// <param name="exception">异常信息</param>
         public virtual void WriteErrorLog(string text, Exception exception = null)
         {
-           // Log.WriteErrorLog($" 连接{RemoteEndPoint}-{text}", exception);
+            // Log.WriteErrorLog($" 连接{RemoteEndPoint}-{text}", exception);
         }
         /// <summary>
         /// 写入日志。

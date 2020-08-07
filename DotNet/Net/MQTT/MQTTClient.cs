@@ -121,27 +121,11 @@ namespace DotNet.Net.MQTT
         /// <returns></returns>
         protected virtual Task OnKeepAlive(int keepAlive)
         {
-#if NET40
             return Task.Factory.StartNew(() =>
-          {
-              while (true)
-              {
-                  System.Threading.Thread.Sleep(keepAlive*1000);
-                  var package = new MQTTDataPackage() { MessageType = MessageType.PingRequest };
-                  var result = SendPackage(package);
-                  if (!result.Success)
-                  {
-                      this.Close();
-                      return;
-                  }
-              }
-          });
-#else
-            return Task.Run(async () =>
             {
                 while (true)
                 {
-                    await Task.Delay(keepAlive * 1000);
+                    System.Threading.Thread.Sleep(keepAlive * 1000);
                     var package = new MQTTDataPackage() { MessageType = MessageType.PingRequest };
                     var result = SendPackage(package);
                     if (!result.Success)
@@ -150,9 +134,7 @@ namespace DotNet.Net.MQTT
                         return;
                     }
                 }
-
-            });
-#endif
+            }, TaskCreationOptions.LongRunning);
 
         }
         /// <summary>
