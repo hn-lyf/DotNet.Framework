@@ -131,7 +131,7 @@ namespace DotNet.Linq
                 byte num4 = bytes[index++];
                 stringBuilder.Append(GetHexValue(num4 / 0x10));
                 stringBuilder.Append(GetHexValue(num4 % 0x10));
-                if (count == -1 && stringBuilder.Length == count * 2)
+                if (count == -1 || stringBuilder.Length == count * 2)
                 {
                     break;
                 }
