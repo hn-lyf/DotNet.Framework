@@ -51,7 +51,7 @@ namespace DotNet
         /// <returns></returns>
         public string GetString(string name)
         {
-            return name;
+            //return name;
             return Resource.GetString(name);
         }
         /// <summary>
