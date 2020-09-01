@@ -17,6 +17,7 @@ namespace Test
         static long TotalCount;
         static void Main(string[] ass)
         {
+            
             //var v = new Version("1.8.0");
             //var v2 = new Version("1.8.1");
             //if (v > v2)
@@ -56,7 +57,7 @@ namespace Test
                     var result = httpHelper.Get($"https://jnpf.net.yinmaisoft.com/api/Saas/Tenant/CheckVerifyCode/15388886666/{i}");
                     //   Console.WriteLine($"{DateTime.Now} 完成{i}");
                     Console.Title = i.ToString();
-                    if (result.Success&&!result.Html.Contains("不正确"))
+                    if (result.Success && !result.Html.Contains("不正确"))
                     {
 
 
