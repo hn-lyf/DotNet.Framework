@@ -63,7 +63,6 @@ namespace DotNet.Linq
         /// <param name="throwOnError">true 将引发所发生的任何异常。 - 或 - false 将忽略所发生的任何异常。</param>
         /// <returns></returns>
         public static Result<List<T>> ToModels<T>(this DataRowCollection rows, bool throwOnError = false)
-            where T : new()
         {
             Result<List<T>> result = new Result<List<T>>
             {
@@ -71,7 +70,7 @@ namespace DotNet.Linq
             };
             foreach (DataRow row in rows)
             {
-                T model = new T();
+                T model = Activator.CreateInstance<T>();
                 if (row.ToModel(model, throwOnError).Success)
                 {
                     result.Data.Add(model);
@@ -81,5 +80,42 @@ namespace DotNet.Linq
             return result;
 
         }
+        /// <summary>
+        /// 将<see cref="DataRow"/>集合转换成<typeparamref name="T"/>的yield的迭代器
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="rows"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> ToList<T>(this DataRowCollection rows)
+        {
+            foreach (DataRow row in rows)
+            {
+                T model = Activator.CreateInstance<T>();
+                row.ToModel(model, false);
+                yield return model;
+            }
+        }
+        /// <summary>
+        /// 将<see cref="DataTable"/>表格转换成<typeparamref name="T"/>的yield的迭代器
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataTable"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> ToList<T>(this DataTable dataTable)
+        {
+            return dataTable.Rows.ToList<T>();
+        }
+        /// <summary>
+        /// 将<see cref="DataSet"/>中指定索引的<see cref="DataTable"/>转换成<typeparamref name="T"/>的yield的迭代器
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataSet"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> ToList<T>(this DataSet dataSet, int index = 0)
+        {
+            return dataSet.Tables[0].Rows.ToList<T>();
+        }
+       
     }
 }

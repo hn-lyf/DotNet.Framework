@@ -95,27 +95,31 @@ namespace DotNet.Linq
         /// <returns></returns>
         public static object ChangeType<T>(this T value, Type conversionType)
         {
-            if (conversionType.IsEnum)
+            try
             {
-                return Enum.Parse(conversionType, value.ToString());
-            }
-            if (conversionType == typeof(string))
-            {
-                return value.ToString();
-            }
-            var vtype = conversionType.GetValueType();
-            if (vtype != conversionType)
-            {
-                try
+                if (conversionType.IsEnum)
+                {
+                    return Enum.Parse(conversionType, value.ToString());
+                }
+                if (conversionType == typeof(string))
+                {
+                    return value.ToString();
+                }
+                if (typeof(Version) == conversionType)
+                {
+                    return Version.Parse(value.ToString());
+                }
+                var vtype = conversionType.GetValueType();
+                if (vtype != conversionType)
                 {
                     return Convert.ChangeType(value, vtype);
                 }
-                catch
-                {
-                    return null;
-                }
+                return Convert.ChangeType(value, conversionType);
             }
-            return Convert.ChangeType(value, conversionType);
+            catch
+            {
+                return null;
+            }
         }
         /// <summary>
         /// 获取值真实的类，避免int? 等。

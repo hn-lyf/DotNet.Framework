@@ -141,7 +141,7 @@ namespace DotNet.Linq
             Task task = new Task(() =>
             {
                 action.ExecuteRetry(retryCount, sleep);
-            });
+            }, TaskCreationOptions.LongRunning);
             task.Start();
             return task;
         }
@@ -178,7 +178,7 @@ namespace DotNet.Linq
             Task task = new Task(() =>
             {
                 action.ExecuteRetry<T>(retryCount, exceptionAction);
-            });
+            }, TaskCreationOptions.LongRunning);
             task.Start();
             return task;
         }
@@ -195,7 +195,7 @@ namespace DotNet.Linq
             Task task = new Task(() =>
             {
                 action.ExecuteRetry<T>(retryCount, exceptionAction);
-            });
+            }, TaskCreationOptions.LongRunning);
             task.Start();
             return task;
         }
@@ -209,10 +209,10 @@ namespace DotNet.Linq
         /// <returns></returns>
         public static async Task ExecuteRetryAsync(this Action action, int retryCount, int sleep = 1000)
         {
-            await Task.Run(() =>
+            await Task.Factory.StartNew(() =>
             {
                 action.ExecuteRetry(retryCount, sleep);
-            });
+            }, TaskCreationOptions.LongRunning);
         }
 
         /// <summary>
@@ -245,10 +245,10 @@ namespace DotNet.Linq
         public static async Task ExecuteRetryAsync<T>(this Action action, int retryCount, Action<T, int> exceptionAction)
             where T : Exception
         {
-            await Task.Run(() =>
+            await Task.Factory.StartNew(() =>
             {
                 action.ExecuteRetry<T>(retryCount, exceptionAction);
-            });
+            }, TaskCreationOptions.LongRunning);
         }
         /// <summary>
         /// 执行委托，并指定重试次数
@@ -260,10 +260,10 @@ namespace DotNet.Linq
         public static async Task ExecuteRetryAsync<T>(this Action action, int retryCount, Func<T, int, bool> exceptionAction)
             where T : Exception
         {
-            await Task.Run(() =>
+            await Task.Factory.StartNew(() =>
             {
                 action.ExecuteRetry<T>(retryCount, exceptionAction);
-            });
+            }, TaskCreationOptions.LongRunning);
         }
 #endif
         /// <summary>
@@ -349,7 +349,7 @@ namespace DotNet.Linq
         /// <param name="exceptionAction">执行异常时发生的委托,如果返回true,将结束重试</param>
         public static Task<Result<TResult>> ExecuteRetryAsync<TResult>(this Func<TResult> func, int retryCount, Func<Exception, int, bool> exceptionAction)
         {
-            Task<Result<TResult>> task = new Task<Result<TResult>>(() => func.ExecuteRetry(retryCount, exceptionAction));
+            Task<Result<TResult>> task = new Task<Result<TResult>>(() => func.ExecuteRetry(retryCount, exceptionAction), TaskCreationOptions.LongRunning);
             task.Start();
             return task;
         }
@@ -362,7 +362,7 @@ namespace DotNet.Linq
         /// <param name="exceptionAction">执行异常时发生的委托,如果返回true,将结束重试</param>
         public static Task<Result<TResult>> ExecuteRetryAsync<TResult>(this Func<TResult> func, int retryCount, Action<Exception, int>  exceptionAction)
         {
-            Task<Result<TResult>> task = new Task<Result<TResult>>(() => func.ExecuteRetry(retryCount, exceptionAction));
+            Task<Result<TResult>> task = new Task<Result<TResult>>(() => func.ExecuteRetry(retryCount, exceptionAction), TaskCreationOptions.LongRunning);
             task.Start();
             return task;
         }
@@ -376,7 +376,7 @@ namespace DotNet.Linq
         /// <param name="exceptionAction">执行异常时发生的委托,如果返回true,将结束重试</param>
         public static async Task<Result<TResult>> ExecuteRetryAsync<TResult>(this Func<TResult> func, int retryCount, Func<Exception, int, bool> exceptionAction)
         {
-            return await Task.Run(() => func.ExecuteRetry(retryCount, exceptionAction)); ;
+            return await Task.Factory.StartNew(() => func.ExecuteRetry(retryCount, exceptionAction), TaskCreationOptions.LongRunning); ;
         }
         /// <summary>
         /// 异步执行委托，并指定重试次数
@@ -387,7 +387,7 @@ namespace DotNet.Linq
         /// <param name="exceptionAction">执行异常时发生的委托,如果返回true,将结束重试</param>
         public static async Task<Result<TResult>> ExecuteRetryAsync<TResult>(this Func<TResult> func, int retryCount, Action<Exception, int> exceptionAction)
         {
-            return await Task.Run(() => func.ExecuteRetry(retryCount, exceptionAction)); ;
+            return await Task.Factory.StartNew(() => func.ExecuteRetry(retryCount, exceptionAction), TaskCreationOptions.LongRunning); ;
         }
 #endif
     }

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.2;netcoreapp3.1;net4.0;net45;netstandard2.1</TargetFrameworks>
-    <Version>3.0.0</Version>
+    <Version>3.0.03</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>dotnet.org.cn</Authors>
     <Company>www.dotnet.org.cn</Company>
@@ -12,7 +12,7 @@
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>DotNet.Framework.pfx</AssemblyOriginatorKeyFile>
     <PackageProjectUrl>https://github.com/hnlyf168/DotNet.Framework</PackageProjectUrl>
-    <PackageId>DotNet</PackageId>
+    <PackageId>DotNetCN</PackageId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>\DotNet\DotNet.xml</DocumentationFile>

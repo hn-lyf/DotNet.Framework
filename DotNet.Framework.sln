@@ -19,7 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "基础框架", "基础框�
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "应用", "应用", "{392F684F-7CB4-4905-A5A9-7F05DBE43EBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.Models", "DotNet.Models\DotNet.Models.csproj", "{C9E31963-15AE-4624-BA91-039A9B6A4053}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet.Models", "DotNet.Models\DotNet.Models.csproj", "{C9E31963-15AE-4624-BA91-039A9B6A4053}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.Web.UpdateApi", "DotNet.Web.UpdateApi\DotNet.Web.UpdateApi.csproj", "{F6DFEA11-19B7-4B2A-BD84-4DFE9CC92D96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{C9E31963-15AE-4624-BA91-039A9B6A4053}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9E31963-15AE-4624-BA91-039A9B6A4053}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9E31963-15AE-4624-BA91-039A9B6A4053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6DFEA11-19B7-4B2A-BD84-4DFE9CC92D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6DFEA11-19B7-4B2A-BD84-4DFE9CC92D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6DFEA11-19B7-4B2A-BD84-4DFE9CC92D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6DFEA11-19B7-4B2A-BD84-4DFE9CC92D96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{D2E200E7-035E-4C67-B88E-B063440FDE30} = {392F684F-7CB4-4905-A5A9-7F05DBE43EBF}
 		{BB4D77E8-A7F3-411E-8BFD-A3537DE82D34} = {392F684F-7CB4-4905-A5A9-7F05DBE43EBF}
 		{C9E31963-15AE-4624-BA91-039A9B6A4053} = {392F684F-7CB4-4905-A5A9-7F05DBE43EBF}
+		{F6DFEA11-19B7-4B2A-BD84-4DFE9CC92D96} = {392F684F-7CB4-4905-A5A9-7F05DBE43EBF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92CADC71-E262-4349-8338-FA6528217F3D}

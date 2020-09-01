@@ -21,7 +21,6 @@ namespace DotNet.Linq
         {
             var clientStream = new NetworkStream(client, true);
             var serverStream = new NetworkStream(server, true);
-#if NET40
             Task.WaitAll(Task.Factory.StartNew(() =>
             {
                 try
@@ -33,7 +32,7 @@ namespace DotNet.Linq
                     client?.Close();
                     server?.Close();
                 }
-            }), Task.Factory.StartNew(() =>
+            }, TaskCreationOptions.LongRunning), Task.Factory.StartNew(() =>
             {
                 try
                 {
@@ -44,35 +43,7 @@ namespace DotNet.Linq
                     client?.Close();
                     server?.Close();
                 }
-            }));
-#else
-            Task.WaitAll(Task.Run(() =>
-           {
-               try
-               {
-                   clientStream.CopyTo(serverStream);
-               }
-               catch
-               {
-                   client?.Close();
-                   server?.Close();
-               }
-
-
-           }), Task.Run(() =>
-           {
-               try
-               {
-                   serverStream.CopyTo(clientStream);
-               }
-               catch
-               {
-                   client?.Close();
-                   server?.Close();
-               }
-
-           }));
-#endif
+            }, TaskCreationOptions.LongRunning));
             client?.Close();
             server?.Close();
         }
