@@ -9,7 +9,7 @@
     <Copyright>www.dotnet.org.cn</Copyright>
     <Description>基础类库,不兼容之前的1.*-~2.*的产品</Description>
     <PackageReleaseNotes>基础类库,不兼容之前的1.*-~2.*的产品</PackageReleaseNotes>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>DotNet.Framework.pfx</AssemblyOriginatorKeyFile>
     <PackageProjectUrl>https://github.com/hnlyf168/DotNet.Framework</PackageProjectUrl>
     <PackageId>DotNet</PackageId>
