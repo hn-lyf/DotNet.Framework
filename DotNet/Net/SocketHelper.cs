@@ -26,7 +26,7 @@ namespace DotNet.Net
 
 
         /// <summary>
-        /// 客户端的远程信息。
+        /// 客户端的远程信息 。 
         /// </summary>
         public virtual System.Net.EndPoint RemoteEndPoint { get => remoteEndPoint; }
         /// <summary>
