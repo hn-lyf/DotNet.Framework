@@ -28,8 +28,11 @@ namespace DotNet.Net.Modbus
         /// 从站应答的字节
         /// </summary>
         public byte[] Bytes { get; set; }
-
-        public byte[] ToBytes()
+        /// <summary>
+        /// 获取所有的字节
+        /// </summary>
+        /// <returns></returns>
+        public virtual byte[] ToBytes()
         {
             using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
             {
@@ -53,6 +56,9 @@ namespace DotNet.Net.Modbus
 
         }
     }
+    /// <summary>
+    /// modbus tcp 包
+    /// </summary>
     public class ModbusTcpDataPackage : ModbusDataPackage
     {
         /// <summary>
@@ -63,6 +69,19 @@ namespace DotNet.Net.Modbus
         /// modbus协议标识 固定为0
         /// </summary>
         public ushort ModbusFlag { get; set; }
-
+        /// <summary>
+        /// modbus tcp 包
+        /// </summary>
+        /// <returns></returns>
+        public override byte[] ToBytes()
+        {
+            using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
+            {
+                memoryStream.Write(Index.ToBytes());
+                memoryStream.Write(ModbusFlag.ToBytes());
+                memoryStream.Write(base.ToBytes());
+                return memoryStream.ToArray();
+            }
+        }
     }
 }
