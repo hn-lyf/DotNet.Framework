@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <soft>dangan</soft>
+  <server>http://localhost:4130/api</server>
+  <version>0.0.15</version>
+  <start>http://www.qcxt.com</start>
+</root>

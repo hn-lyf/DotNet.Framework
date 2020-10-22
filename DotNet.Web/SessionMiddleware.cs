@@ -96,7 +96,7 @@ namespace DotNet.Web
             {
                 Session = _sessionStore.Create(sessionKey, _options.IdleTimeout, _options.IOTimeout, tryEstablishSession, isNewSessionKey)
             };
-            feature.Session.SetString("SessionKey", sessionKey);
+            feature.Session.SetString("SessionKey", cookieValue);
             context.Features.Set<ISessionFeature>(feature);
             try
             {

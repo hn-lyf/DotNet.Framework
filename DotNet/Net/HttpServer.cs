@@ -202,7 +202,20 @@ namespace DotNet.Net
                         var parameterVal = request[parameter.Name];
                         if (!string.IsNullOrEmpty(parameterVal))
                         {
-                            parametersObj[i] = Newtonsoft.Json.JsonConvert.DeserializeObject(parameterVal, parameter.ParameterType);
+
+                            if (parameter.ParameterType == typeof(string))
+                            {
+                                parametersObj[i] = parameterVal;
+                            }
+                            else if (parameter.ParameterType.IsPrimitive)
+                            {
+                                parametersObj[i] = parameterVal.ChangeType(parameter.ParameterType);
+                            }
+                            else
+                            {
+                                parametersObj[i] = Newtonsoft.Json.JsonConvert.DeserializeObject(parameterVal, parameter.ParameterType);
+                            }
+                            
                         }
                         else
                         {

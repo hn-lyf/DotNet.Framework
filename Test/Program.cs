@@ -33,7 +33,8 @@ namespace Test
 
         static void Main(string[] ass)
         {
-            
+            var t = typeof(double);
+            var ty = t.IsPrimitive;
             Console.WriteLine("结束？");
             Console.ReadLine();
         }
